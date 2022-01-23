@@ -8,4 +8,6 @@ puts "
 
 "
 
-Game.new
+game = Game.new
+
+game.game_loop
