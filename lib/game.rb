@@ -14,6 +14,11 @@ class Game
   def turn_message
     choices = ["Make a move", "Call 'check'", "Call 'checkmate'", "Save game"]
     selection = @prompt.select("Player #{@cur_player.upcase}, make your choice", choices)
+    save_game if selection == "Save game"
+  end
+
+  def save_game
+    
   end
 end
 
