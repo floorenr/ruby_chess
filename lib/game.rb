@@ -4,6 +4,7 @@ class Game
   def initialize
     @board = Board.new
     @cur_player = 'white'
+    @prompt = TTY::Prompt.new
   end
 
   def game_loop
@@ -11,9 +12,8 @@ class Game
   end
 
   def turn_message
-    puts "Player #{@cur_player.upcase}, make your choice"
-    puts "Type the position of desired piece to move (eg. 'a1')"
-    puts "Or type 'c', 'cm', or 's' to declare check, checkmate or save game"
+    choices = ["Make a move", "Call 'check'", "Call 'checkmate'", "Save game"]
+    @prompt.select("Player #{@cur_player.upcase}, make your choice", choices)
   end
 end
 
