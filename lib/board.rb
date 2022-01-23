@@ -17,13 +17,13 @@ class Board
 
   def print_board
     rows = @board_array.each_slice(8).to_a
-    puts "\u250c" + ("\u2500"*3 + "\u252c")*7 + "\u2500"*3 + "\u2510"
+    puts "┌#{"#{"\u2500" * 3}┬" * 7}#{"\u2500" * 3}┐"
     rows.reverse.each do |row|
       print = row.map { |f| " #{f['content'].graphic} " }.join("\u2502")
-      puts "\u2502" + print + "\u2502"
-      puts "\u251c" + ("\u2500"*3 + "\u253c")*7 + "\u2500"*3 + "\u2524" unless row[0]['row'] == 1
+      puts "│#{print}│"
+      puts "├#{"#{"\u2500" * 3}┼" * 7}#{"\u2500" * 3}┤" unless row[0]['row'] == 1
     end
-    puts "\u2514" + ("\u2500"*3 + "\u2534")*7 + "\u2500"*3 + "\u2518"
+    puts "└#{"#{"\u2500" * 3}┴" * 7}#{"\u2500" * 3}┘"
   end
 
   def init_board
