@@ -11,6 +11,11 @@ class Board
       end
     end
     init_board
+    print_board
+  end
+
+  def print_board
+    puts @board_array[0]['content'].graphic.encode('utf-8')
   end
 
   def init_board
@@ -58,6 +63,8 @@ class Board
 end
 
 class Rook
+  attr_accessor :graphic
+
   def initialize(color = 'black')
     @color = color
     @color == 'black'? @graphic = "\u265C" : @graphic = "\u2656"
@@ -65,6 +72,8 @@ class Rook
 end
 
 class Knight
+  attr_accessor :graphic
+
   def initialize(color = 'black')
     @color = color
     @color == 'black'? @graphic = "\u265E" : @graphic = "\u2658"
@@ -72,6 +81,8 @@ class Knight
 end
 
 class Bishop
+  attr_accessor :graphic
+
   def initialize(color = 'black')
     @color = color
     @color == 'black'? @graphic = "\u265D" : @graphic = "\u2657"
@@ -79,6 +90,8 @@ class Bishop
 end
 
 class Queen
+  attr_accessor :graphic
+
   def initialize(color = 'black')
     @color = color
     @color == 'black'? @graphic = "\u265B" : @graphic = "\u2655"
@@ -86,6 +99,8 @@ class Queen
 end
 
 class King
+  attr_accessor :graphic
+
   def initialize(color = 'black')
     @color = color
     @color == 'black'? @graphic = "\u265A" : @graphic = "\u2654"
@@ -93,6 +108,8 @@ class King
 end
 
 class Pawn
+  attr_accessor :graphic
+
   def initialize(color = 'black')
     @color = color
     @color == 'black'? @graphic = "\u265F" : @graphic = "\u2659"
