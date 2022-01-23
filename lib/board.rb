@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require_relative 'init_setup'
 
 class Board
   attr_accessor :board_array
@@ -10,13 +11,28 @@ class Board
         @board_array << { 'column' => j, 'row' => i , 'content' => nil }
       end
     end
-    init_pawns
+    init_board
+    p @board_array
   end
 
-  def init_pawns
+  def init_board
+    Init_setup::PIECES.each do |piece|
+      init_piece(piece[0], piece[1], piece[2])
+    end
+  end
+
+  def move_piece
+
+  end
+
+  def delete_piece
+
+  end
+
+  def init_piece(column, row, content)
     @board_array.collect! do |pos|
-      if pos['row'] == 2 || pos['row'] == 7
-        pos['content'] = 'pawn'
+      if pos['row'] == row && pos['column'] == column
+        pos['content'] = content
         pos
       else
         pos
