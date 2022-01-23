@@ -33,6 +33,17 @@ class Board
     end
   end
 
+  def move_piece; end
+
+  def delete_piece; end
+
+  def init_piece(column, row, content)
+    @board_array.collect! do |pos|
+      pos['content'] = content if pos['row'] == row && pos['column'] == column
+      pos
+    end
+  end
+
   def create_setup
     @init_setup = [
       ['a', 1, Rook.new('white')],
@@ -55,17 +66,6 @@ class Board
     [*'a'..'h'].each do |column|
       @init_setup << [column, 2, Pawn.new('white')]
       @init_setup << [column, 7, Pawn.new]
-    end
-  end
-
-  def move_piece; end
-
-  def delete_piece; end
-
-  def init_piece(column, row, content)
-    @board_array.collect! do |pos|
-      pos['content'] = content if pos['row'] == row && pos['column'] == column
-      pos
     end
   end
 end
