@@ -60,36 +60,42 @@ end
 class Rook
   def initialize(color = 'black')
     @color = color
+    @color == 'black'? @graphic = "\u265C" : @graphic = "\u2656"
   end
 end
 
 class Knight
   def initialize(color = 'black')
     @color = color
+    @color == 'black'? @graphic = "\u265E" : @graphic = "\u2658"
   end
 end
 
 class Bishop
   def initialize(color = 'black')
     @color = color
+    @color == 'black'? @graphic = "\u265D" : @graphic = "\u2657"
   end
 end
 
 class Queen
   def initialize(color = 'black')
     @color = color
+    @color == 'black'? @graphic = "\u265B" : @graphic = "\u2655"
   end
 end
 
 class King
   def initialize(color = 'black')
     @color = color
+    @color == 'black'? @graphic = "\u265A" : @graphic = "\u2654"
   end
 end
 
 class Pawn
   def initialize(color = 'black')
     @color = color
+    @color == 'black'? @graphic = "\u265F" : @graphic = "\u2659"
   end
 end
 
