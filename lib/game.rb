@@ -11,8 +11,8 @@ class Game
   def game_loop
     turn_message
     save_game if @selection == "Save game"
-    check if @selection == "Call 'check'"
-    checkmate if @selection == "Call 'checkmate'"
+    call_check if @selection == "Call 'check'"
+    call_checkmate if @selection == "Call 'checkmate'"
     make_move if @selection == "Make a move"
   end
 
@@ -27,15 +27,16 @@ class Game
   end
 
   def make_move
+    column_choice  = @prompt.ask("Pick column (a-h)") { |q| q.in("a-h") }
+    row_choice  = @prompt.ask("Pick row (1-8)") { |q| q.in("1-8") }.to_i
+  end
+
+  def call_check
 
   end
 
-  def check
+  def call_checkmate
 
-  end
-
-  def checkmate
-    
   end
 end
 
