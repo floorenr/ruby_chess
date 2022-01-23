@@ -8,4 +8,4 @@ puts "
 
 "
 
-Board.new
+Game.new
