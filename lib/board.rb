@@ -22,14 +22,14 @@ class Board
 
   def create_setup
     @init_setup = [
-      ['a', 1, Rook.new],
-      ['b', 1, Knight.new],
-      ['c', 1, Bishop.new],
-      ['d', 1, Queen.new],
-      ['e', 1, King.new],
-      ['f', 1, Bishop.new],
-      ['g', 1, Knight.new],
-      ['h', 1, Rook.new],
+      ['a', 1, Rook.new('white')],
+      ['b', 1, Knight.new('white')],
+      ['c', 1, Bishop.new('white')],
+      ['d', 1, Queen.new('white')],
+      ['e', 1, King.new('white')],
+      ['f', 1, Bishop.new('white')],
+      ['g', 1, Knight.new('white')],
+      ['h', 1, Rook.new('white')],
       ['a', 8, Rook.new],
       ['b', 8, Knight.new],
       ['c', 8, Bishop.new],
@@ -40,7 +40,7 @@ class Board
       ['h', 8, Rook.new],
     ]
     [*'a'..'h'].each do |column|
-      @init_setup << [column, 2, Pawn.new]
+      @init_setup << [column, 2, Pawn.new('white')]
       @init_setup << [column, 7, Pawn.new]
     end
   end
@@ -58,38 +58,38 @@ class Board
 end
 
 class Rook
-  def initialize
-
+  def initialize(color = 'black')
+    @color = color
   end
 end
 
 class Knight
-  def initialize
-
+  def initialize(color = 'black')
+    @color = color
   end
 end
 
 class Bishop
-  def initialize
-
+  def initialize(color = 'black')
+    @color = color
   end
 end
 
 class Queen
-  def initialize
-
+  def initialize(color = 'black')
+    @color = color
   end
 end
 
 class King
-  def initialize
-
+  def initialize(color = 'black')
+    @color = color
   end
 end
 
 class Pawn
-  def initialize
-
+  def initialize(color = 'black')
+    @color = color
   end
 end
 
