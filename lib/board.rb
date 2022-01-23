@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Instance of a chess board
 class Board
   attr_accessor :board_array
 
@@ -42,7 +43,7 @@ class Board
       ['e', 8, King.new],
       ['f', 8, Bishop.new],
       ['g', 8, Knight.new],
-      ['h', 8, Rook.new],
+      ['h', 8, Rook.new]
     ]
     [*'a'..'h'].each do |column|
       @init_setup << [column, 2, Pawn.new('white')]
@@ -62,57 +63,62 @@ class Board
   end
 end
 
+# Instance of a chess piece
 class Rook
   attr_accessor :graphic
 
   def initialize(color = 'black')
     @color = color
-    @color == 'black'? @graphic = "\u265C" : @graphic = "\u2656"
+    @graphic = @color == 'black' ? "\u265C" : "\u2656"
   end
 end
 
+# Instance of a chess piece
 class Knight
   attr_accessor :graphic
 
   def initialize(color = 'black')
     @color = color
-    @color == 'black'? @graphic = "\u265E" : @graphic = "\u2658"
+    @graphic = @color == 'black' ? "\u265E" : "\u2658"
   end
 end
 
+# Instance of a chess piece
 class Bishop
   attr_accessor :graphic
 
   def initialize(color = 'black')
     @color = color
-    @color == 'black'? @graphic = "\u265D" : @graphic = "\u2657"
+    @graphic = @color == 'black' ? "\u265D" : "\u2657"
   end
 end
 
+# Instance of a chess piece
 class Queen
   attr_accessor :graphic
 
   def initialize(color = 'black')
     @color = color
-    @color == 'black'? @graphic = "\u265B" : @graphic = "\u2655"
+    @graphic = @color == 'black' ? "\u265B" : "\u2655"
   end
 end
 
+# Instance of a chess piece
 class King
   attr_accessor :graphic
 
   def initialize(color = 'black')
     @color = color
-    @color == 'black'? @graphic = "\u265A" : @graphic = "\u2654"
+    @graphic = @color == 'black' ? "\u265A" : "\u2654"
   end
 end
 
+# Instance of a chess piece
 class Pawn
   attr_accessor :graphic
 
   def initialize(color = 'black')
     @color = color
-    @color == 'black'? @graphic = "\u265F" : @graphic = "\u2659"
+    @graphic = @color == 'black' ? "\u265F" : "\u2659"
   end
 end
-
