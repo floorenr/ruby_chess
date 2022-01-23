@@ -8,7 +8,7 @@ class Board
     @board_array = []
     (1..8).each do |i|
       ('a'..'h').each do |j|
-        @board_array << { 'column' => j, 'row' => i, 'content' => nil }
+        @board_array << { 'column' => j, 'row' => i, 'content' => EmptySpace.new }
       end
     end
     init_board
@@ -16,7 +16,14 @@ class Board
   end
 
   def print_board
-    puts @board_array[0]['content'].graphic.encode('utf-8')
+    rows = @board_array.each_slice(8).to_a
+    puts "\u250c" + ("\u2500"*3 + "\u252c")*7 + "\u2500"*3 + "\u2510"
+    rows.reverse.each do |row|
+      print = row.map { |f| " #{f['content'].graphic} " }.join("\u2502")
+      puts "\u2502" + print + "\u2502"
+      puts "\u251c" + ("\u2500"*3 + "\u253c")*7 + "\u2500"*3 + "\u2524" unless row[0]['row'] == 1
+    end
+    puts "\u2514" + ("\u2500"*3 + "\u2534")*7 + "\u2500"*3 + "\u2518"
   end
 
   def init_board
@@ -120,5 +127,13 @@ class Pawn
   def initialize(color = 'black')
     @color = color
     @graphic = @color == 'black' ? "\u265F" : "\u2659"
+  end
+end
+
+class EmptySpace
+  attr_accessor :graphic
+
+  def initialize
+    @graphic = ' '
   end
 end
