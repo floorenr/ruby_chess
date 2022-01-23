@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'init_setup'
-
 class Board
   attr_accessor :board_array
 
@@ -13,12 +11,37 @@ class Board
       end
     end
     init_board
-    p @board_array
   end
 
   def init_board
-    InitSetup::PIECES.each do |piece|
+    create_setup
+    @init_setup.each do |piece|
       init_piece(piece[0], piece[1], piece[2])
+    end
+  end
+
+  def create_setup
+    @init_setup = [
+      ['a', 1, 'rook'],
+      ['b', 1, 'knight'],
+      ['c', 1, 'bishop'],
+      ['d', 1, 'queen'],
+      ['e', 1, 'king'],
+      ['f', 1, 'bishop'],
+      ['g', 1, 'knight'],
+      ['h', 1, 'rook'],
+      ['a', 8, 'rook'],
+      ['b', 8, 'knight'],
+      ['c', 8, 'bishop'],
+      ['d', 8, 'queen'],
+      ['e', 8, 'king'],
+      ['f', 8, 'bishop'],
+      ['g', 8, 'knight'],
+      ['h', 8, 'rook'],
+    ]
+    [*'a'..'h'].each do |column|
+      @init_setup << [column, 2, 'pawn']
+      @init_setup << [column, 7, 'pawn']
     end
   end
 
