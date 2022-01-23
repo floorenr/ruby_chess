@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Instance of a chess board
 class Board
   attr_accessor :board_array
 
@@ -70,7 +69,6 @@ class Board
   end
 end
 
-# Instance of a chess piece
 class Rook
   attr_accessor :graphic
 
@@ -80,7 +78,6 @@ class Rook
   end
 end
 
-# Instance of a chess piece
 class Knight
   attr_accessor :graphic
 
@@ -90,7 +87,6 @@ class Knight
   end
 end
 
-# Instance of a chess piece
 class Bishop
   attr_accessor :graphic
 
@@ -100,7 +96,6 @@ class Bishop
   end
 end
 
-# Instance of a chess piece
 class Queen
   attr_accessor :graphic
 
@@ -110,7 +105,6 @@ class Queen
   end
 end
 
-# Instance of a chess piece
 class King
   attr_accessor :graphic
 
@@ -120,7 +114,6 @@ class King
   end
 end
 
-# Instance of a chess piece
 class Pawn
   attr_accessor :graphic
 
