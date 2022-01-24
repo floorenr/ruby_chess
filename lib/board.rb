@@ -45,6 +45,10 @@ class Board
     end
   end
 
+  def square_occ?(column, row)
+    
+  end
+
   def create_setup
     @init_setup = [
       ['a', 1, Rook.new('a1', 'white')],

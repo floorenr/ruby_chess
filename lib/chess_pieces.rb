@@ -21,9 +21,9 @@ class Rook
 
   def calc_moves
     # temp_pos = @pos
-    # until offboard?(temp_pos) || @pos[0] ==
+    # until offboard?(temp_pos) || game.board.square_occ?(temp_pos[0], temp_pos[1].to_i)
 
-
+    # @moves_array <<
   end
 end
 
