@@ -1,16 +1,29 @@
+module ChessPiece
+  def offboard?(pos)
+    if [*1..8].include?(pos[1].to_i) && [*'a'..'h'].include?(pos[0])
+      false
+    else
+      true
+    end
+  end
+end
+
 class Rook
+  include ChessPiece
   attr_accessor :graphic, :color, :pos
 
   def initialize(pos, color = 'black')
     @color = color
     @graphic = @color == 'black' ? "\u265C" : "\u2656"
-    p @pos = pos.split(//)
+    @pos = pos.split(//)
     calc_moves
   end
 
   def calc_moves
+    # temp_pos = @pos
+    # until offboard?(temp_pos) || @pos[0] ==
 
-    # p @moves_array <<
+
   end
 end
 
