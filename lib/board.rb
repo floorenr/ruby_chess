@@ -47,26 +47,26 @@ class Board
 
   def create_setup
     @init_setup = [
-      ['a', 1, Rook.new('white')],
-      ['b', 1, Knight.new('white')],
-      ['c', 1, Bishop.new('white')],
-      ['d', 1, Queen.new('white')],
-      ['e', 1, King.new('white')],
-      ['f', 1, Bishop.new('white')],
-      ['g', 1, Knight.new('white')],
-      ['h', 1, Rook.new('white')],
-      ['a', 8, Rook.new],
-      ['b', 8, Knight.new],
-      ['c', 8, Bishop.new],
-      ['d', 8, Queen.new],
-      ['e', 8, King.new],
-      ['f', 8, Bishop.new],
-      ['g', 8, Knight.new],
-      ['h', 8, Rook.new]
+      ['a', 1, Rook.new('a1', 'white')],
+      ['b', 1, Knight.new('b1', 'white')],
+      ['c', 1, Bishop.new('c1', 'white')],
+      ['d', 1, Queen.new('d1', 'white')],
+      ['e', 1, King.new('e1', 'white')],
+      ['f', 1, Bishop.new('f1', 'white')],
+      ['g', 1, Knight.new('g1', 'white')],
+      ['h', 1, Rook.new('h1', 'white')],
+      ['a', 8, Rook.new('a8')],
+      ['b', 8, Knight.new('b8')],
+      ['c', 8, Bishop.new('c8')],
+      ['d', 8, Queen.new('d8')],
+      ['e', 8, King.new('e8')],
+      ['f', 8, Bishop.new('f8')],
+      ['g', 8, Knight.new('g8')],
+      ['h', 8, Rook.new('h8')]
     ]
     [*'a'..'h'].each do |column|
-      @init_setup << [column, 2, Pawn.new('white')]
-      @init_setup << [column, 7, Pawn.new]
+      @init_setup << [column, 2, Pawn.new("#{column}2", 'white')]
+      @init_setup << [column, 7, Pawn.new("#{column}7")]
     end
   end
 end
