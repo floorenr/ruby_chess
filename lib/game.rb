@@ -11,13 +11,11 @@ class Game
   def game_loop
     turn_message
     save_game if @player_sel == "Save game"
-    call_check if @player_sel == "Call 'check'"
-    call_checkmate if @player_sel == "Call 'checkmate'"
     init_move if @player_sel == "Make a move"
   end
 
   def turn_message
-    choices = ["Make a move", "Call 'check'", "Call 'checkmate'", "Save game"]
+    choices = ["Make a move", "Save game"]
     @player_sel = @prompt.select("Player #{@cur_player.upcase}, make your choice", choices)
   end
 
@@ -32,7 +30,7 @@ class Game
     row_choice  = @prompt.ask("Pick row (1-8)") { |q| q.in("1-8") }.to_i
     sel_square = find_square(column_choice, row_choice)
     unless sel_square['content'].color == @cur_player
-      puts "Square does not hold one of your pieces. Try again"
+      puts "Square does not hold one of your pieces, try again"
       init_move
     end
     # ask for desired move
@@ -45,15 +43,7 @@ class Game
   end
 
   def make_move
-
-  end
-
-  def call_check
-
-  end
-
-  def call_checkmate
-
+    #make the move
   end
 end
 
