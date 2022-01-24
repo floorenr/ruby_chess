@@ -31,9 +31,14 @@ class Game
     column_choice  = @prompt.ask("Pick column (a-h)") { |q| q.in("a-h") }
     row_choice  = @prompt.ask("Pick row (1-8)") { |q| q.in("1-8") }.to_i
     # check validity of choice
+    p find_square(column_choice, row_choice)
     # ask for desired move
     # check validity of move
     make_move
+  end
+
+  def find_square(column, row)
+    @board.board_array.select { |square| square['column'] == column && square['row'] = row }
   end
 
   def make_move
