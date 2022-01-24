@@ -8,7 +8,8 @@ def new_game
 end
 
 def saved_game
-
+  # show saved games and prompt to choose
+  # run .game_loop on loaded object
 end
 
 puts "
