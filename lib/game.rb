@@ -5,20 +5,20 @@ class Game
     @board = Board.new
     @cur_player = 'white'
     @prompt = TTY::Prompt.new
-    @selection = nil
+    @player_sel = nil
   end
 
   def game_loop
     turn_message
-    save_game if @selection == "Save game"
-    call_check if @selection == "Call 'check'"
-    call_checkmate if @selection == "Call 'checkmate'"
-    make_move if @selection == "Make a move"
+    save_game if @player_sel == "Save game"
+    call_check if @player_sel == "Call 'check'"
+    call_checkmate if @player_sel == "Call 'checkmate'"
+    make_move if @player_sel == "Make a move"
   end
 
   def turn_message
     choices = ["Make a move", "Call 'check'", "Call 'checkmate'", "Save game"]
-    @selection = @prompt.select("Player #{@cur_player.upcase}, make your choice", choices)
+    @player_sel = @prompt.select("Player #{@cur_player.upcase}, make your choice", choices)
 
   end
 
