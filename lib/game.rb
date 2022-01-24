@@ -30,15 +30,18 @@ class Game
   def init_move
     column_choice  = @prompt.ask("Pick column (a-h)") { |q| q.in("a-h") }
     row_choice  = @prompt.ask("Pick row (1-8)") { |q| q.in("1-8") }.to_i
-    # check validity of choice
-    p find_square(column_choice, row_choice)
+    sel_square = find_square(column_choice, row_choice)
+    unless sel_square['content'].color == @cur_player
+      puts "Square does not hold one of your pieces. Try again"
+      init_move
+    end
     # ask for desired move
     # check validity of move
     make_move
   end
 
   def find_square(column, row)
-    @board.board_array.select { |square| square['column'] == column && square['row'] = row }
+    return @board.board_array.select { |sq| (sq['column'] == column && sq['row'] == row) }[0]
   end
 
   def make_move

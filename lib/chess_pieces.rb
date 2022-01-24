@@ -1,5 +1,5 @@
 class Rook
-  attr_accessor :graphic
+  attr_accessor :graphic, :color
 
   def initialize(color = 'black')
     @color = color
@@ -8,7 +8,7 @@ class Rook
 end
 
 class Knight
-  attr_accessor :graphic
+  attr_accessor :graphic, :color
 
   def initialize(color = 'black')
     @color = color
@@ -17,7 +17,7 @@ class Knight
 end
 
 class Bishop
-  attr_accessor :graphic
+  attr_accessor :graphic, :color
 
   def initialize(color = 'black')
     @color = color
@@ -26,7 +26,7 @@ class Bishop
 end
 
 class Queen
-  attr_accessor :graphic
+  attr_accessor :graphic, :color
 
   def initialize(color = 'black')
     @color = color
@@ -35,7 +35,7 @@ class Queen
 end
 
 class King
-  attr_accessor :graphic
+  attr_accessor :graphic, :color
 
   def initialize(color = 'black')
     @color = color
@@ -44,7 +44,7 @@ class King
 end
 
 class Pawn
-  attr_accessor :graphic
+  attr_accessor :graphic, :color
 
   def initialize(color = 'black')
     @color = color
@@ -53,7 +53,7 @@ class Pawn
 end
 
 class EmptySpace
-  attr_accessor :graphic
+  attr_accessor :graphic, :color
 
   def initialize
     @graphic = ' '
