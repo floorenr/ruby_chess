@@ -1,5 +1,4 @@
 require_relative 'game'
-require_relative 'board'
 require "tty-prompt"
 
 def new_game
