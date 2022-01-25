@@ -45,8 +45,16 @@ class Board
     end
   end
 
+  def find_square(column, row)
+    return @board.board_array.select { |sq| (sq['column'] == column && sq['row'] == row) }[0]
+  end
+
   def square_occ?(column, row)
-    
+    if
+      return true
+    else
+      return false
+    end
   end
 
   def create_setup
