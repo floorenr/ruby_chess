@@ -60,6 +60,10 @@ class Board
     find_square(column, row)['content'].color == color
   end
 
+  def sq_occ_by_opp?(column, row)
+    # to do
+  end
+
   def create_setup
     @init_setup = [
       ['a', 1, Rook.new('a1', 'white')],
