@@ -1,5 +1,3 @@
-# require_relative 'main'
-
 module ChessPiece
   def offboard?(pos)
     if [*1..8].include?(pos[1].to_i) && [*'a'..'h'].include?(pos[0])
@@ -21,8 +19,9 @@ class Rook
   end
 
   def calc_moves
-    # game.board.square_occ?(temp_pos[0], temp_pos[1].to_i)
-    # temp_pos = @pos
+    temp_pos = @pos
+    $game.board.square_occ?(temp_pos[0], temp_pos[1].to_i)
+
     # until offboard?(temp_pos) || game.board.square_occ?(temp_pos[0], temp_pos[1].to_i)
 
     # @moves_array <<

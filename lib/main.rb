@@ -2,8 +2,8 @@ require_relative 'game'
 require "tty-prompt"
 
 def new_game
-  game = Game.new
-  game.game_loop
+  $game = Game.new
+  $game.game_loop
 end
 
 def saved_game
