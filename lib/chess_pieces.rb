@@ -39,16 +39,25 @@ class Rook
 end
 
 class Knight
+  include ChessPiece
   attr_accessor :graphic, :color, :pos
 
   def initialize(pos, color = 'black')
     @color = color
     @graphic = @color == 'black' ? "\u265E" : "\u2658"
     @pos = pos.split(//)
+    @moves_array = []
   end
 
   def calc_moves
-    # @moves_array =
+    directions = [[1, 2], [2, 1], [2, -1], [1, -2], [-1, -2], [-2, -1], [-2, 1], [-1, 2]]
+    directions.each do |direction|
+      temp_pos = @pos.dup
+      temp_pos[0] = (temp_pos[0].ord + direction[0]).chr
+      temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
+      next if offboard?(temp_pos) || $game.board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
+      @moves_array << temp_pos
+    end
   end
 end
 
