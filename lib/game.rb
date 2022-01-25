@@ -11,6 +11,7 @@ class Game
   end
 
   def game_loop
+    @board.print_board
     turn_message
     save_game if @player_sel == "Save game"
     init_move if @player_sel == "Make a move"

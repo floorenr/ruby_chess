@@ -12,7 +12,6 @@ class Board
       end
     end
     init_board
-    print_board
   end
 
   def print_board
