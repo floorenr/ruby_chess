@@ -55,13 +55,12 @@ class Board
     return @board_array.select { |sq| (sq['column'] == column && sq['row'] == row) }[0]
   end
 
-  def square_occ?(column, row)
-    p find_square(column, row)
-    # if find_square(column, row)
-    #   return true
-    # else
-    #   return false
-    # end
+  def sq_occ_by?(column, row, color)
+    if find_square(column, row)['content'].color == color
+      return true
+    else
+      return false
+    end
   end
 
   def create_setup

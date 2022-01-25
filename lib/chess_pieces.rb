@@ -20,9 +20,10 @@ class Rook
 
   def calc_moves
     temp_pos = @pos
-    $game.board.square_occ?(temp_pos[0], temp_pos[1].to_i)
+    p $game.board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
 
-    # until offboard?(temp_pos) || game.board.square_occ?(temp_pos[0], temp_pos[1].to_i)
+    # [[0, 1], []
+    # until offboard?(temp_pos) || $game.board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
 
     # @moves_array <<
   end
