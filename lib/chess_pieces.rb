@@ -20,20 +20,18 @@ class Rook
   end
 
   def calc_moves
-    directions = [[0, 1], [1, 0], [-1, 0], [0, -1]
+    directions = [[0, 1], [1, 0], [-1, 0], [0, -1]]
     directions.each do |direction|
-      temp_pos = @pos
+      temp_pos = @pos.dup
       loop do
         temp_pos[0] = (temp_pos[0].ord + direction[0]).chr
         temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
-        p temp_pos
-        break if $game.board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
         break if offboard?(temp_pos)
+        break if $game.board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
         @moves_array << temp_pos
-        break if $game.board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i)
+        break if $game.board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       end
     end
-    p @moves_array
   end
 end
 

@@ -60,8 +60,12 @@ class Board
     find_square(column, row)['content'].color == color
   end
 
-  def sq_occ_by_opp?(column, row)
-    # to do
+  def sq_occ_by_opp?(column, row, color)
+    if color == 'black'
+      find_square(column, row)['content'].color == 'white'
+    elsif color == 'white'
+      find_square(column, row)['content'].color == 'black'
+    end
   end
 
   def create_setup
