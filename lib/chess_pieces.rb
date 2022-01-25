@@ -103,9 +103,10 @@ class Pawn
 end
 
 class EmptySpace
-  attr_accessor :graphic
+  attr_accessor :graphic, :color
 
   def initialize
     @graphic = ' '
+    @color = nil
   end
 end

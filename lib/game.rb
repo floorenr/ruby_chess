@@ -33,7 +33,7 @@ class Game
     sel_square = @board.find_square(column_choice, row_choice)
     unless sel_square['content'].color == @cur_player
       puts "Square does not hold one of your pieces, try again"
-      init_move
+      return init_move
     end
     # ask for desired move
     # check validity of move
