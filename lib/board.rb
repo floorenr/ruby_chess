@@ -61,9 +61,10 @@ class Board
   end
 
   def sq_occ_by_opp?(column, row, color)
-    if color == 'black'
+    case color
+    when 'black'
       find_square(column, row)['content'].color == 'white'
-    elsif color == 'white'
+    when 'white'
       find_square(column, row)['content'].color == 'black'
     end
   end

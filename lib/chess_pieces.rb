@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ChessPiece
   def offboard?(pos)
     if [*1..8].include?(pos[1].to_i) && [*'a'..'h'].include?(pos[0])
@@ -28,6 +30,7 @@ class Rook
         temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
         break if offboard?(temp_pos)
         break if $game.board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
+
         @moves_array << temp_pos
         break if $game.board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       end
@@ -113,7 +116,5 @@ class EmptySpace
     @color = nil
   end
 
-  def calc_moves
-
-  end
+  def calc_moves; end
 end
