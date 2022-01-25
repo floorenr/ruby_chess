@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require_relative 'game'
-require "tty-prompt"
+require 'tty-prompt'
 
 def new_game
   $game = Game.new
@@ -18,6 +20,6 @@ puts "
 
 "
 prompt = TTY::Prompt.new
-game_choice = prompt.select("Choose your game?", ["New Game", "Saved Game"])
+game_choice = prompt.select('Choose your game?', ['New Game', 'Saved Game'])
 
-game_choice == "Saved Game"? saved_game : new_game
+game_choice == 'Saved Game' ? saved_game : new_game

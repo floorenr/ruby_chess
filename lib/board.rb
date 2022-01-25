@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative 'chess_pieces'
 
 class Board
@@ -24,7 +25,7 @@ class Board
       puts "  ├#{"#{"\u2500" * 3}┼" * 7}#{"\u2500" * 3}┤" unless row[0]['row'] == 1
     end
     puts "  └#{"#{"\u2500" * 3}┴" * 7}#{"\u2500" * 3}┘  WHITE"
-    puts "    #{[*'a'..'h'].join("   ")}\n\n"
+    puts "    #{[*'a'..'h'].join('   ')}\n\n"
   end
 
   def calc_all_moves
@@ -52,15 +53,11 @@ class Board
   end
 
   def find_square(column, row)
-    return @board_array.select { |sq| (sq['column'] == column && sq['row'] == row) }[0]
+    @board_array.select { |sq| (sq['column'] == column && sq['row'] == row) }[0]
   end
 
   def sq_occ_by?(column, row, color)
-    if find_square(column, row)['content'].color == color
-      return true
-    else
-      return false
-    end
+    find_square(column, row)['content'].color == color
   end
 
   def create_setup
@@ -88,4 +85,3 @@ class Board
     end
   end
 end
-
