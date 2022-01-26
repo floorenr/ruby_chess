@@ -22,6 +22,7 @@ class Rook
   end
 
   def calc_moves(current_board)
+    @moves_array = []
     directions = [[0, 1], [1, 0], [-1, 0], [0, -1]]
     directions.each do |direction|
       temp_pos = @pos.dup
@@ -49,6 +50,7 @@ class Knight
   end
 
   def calc_moves(current_board)
+    @moves_array = []
     directions = [[1, 2], [2, 1], [2, -1], [1, -2], [-1, -2], [-2, -1], [-2, 1], [-1, 2]]
     directions.each do |direction|
       temp_pos = @pos.dup
@@ -72,6 +74,7 @@ class Bishop
   end
 
   def calc_moves(current_board)
+    @moves_array = []
     directions = [[1, 1], [1, -1], [-1, -1], [-1, 1]]
     directions.each do |direction|
       temp_pos = @pos.dup
@@ -99,6 +102,7 @@ class Queen
   end
 
   def calc_moves(current_board)
+    @moves_array = []
     directions = [[1, 1], [1, -1], [-1, -1], [-1, 1], [0, 1], [1, 0], [-1, 0], [0, -1]]
     directions.each do |direction|
       temp_pos = @pos.dup
@@ -126,6 +130,7 @@ class King
   end
 
   def calc_moves(current_board)
+    @moves_array = []
     directions = [[1, 1], [1, -1], [-1, -1], [-1, 1], [0, 1], [1, 0], [-1, 0], [0, -1]]
     directions.each do |direction|
       temp_pos = @pos.dup
@@ -150,6 +155,7 @@ class Pawn
   end
 
   def calc_moves(current_board)
+    @moves_array = []
     cond_directions = [[-1, 1], [1, 1]]
     if @pos[1] == '2' || @pos[1] == '7'
       directions = [[0, 1], [0, 2]]
@@ -181,5 +187,5 @@ class EmptySpace
     @color = nil
   end
 
-  def calc_moves(current_board); end
+  def calc_moves(current_board) ; end
 end

@@ -43,7 +43,6 @@ class Game
         "has no possible moves.\nPick another one"
       return init_move
     end
-
     # tell player which piece was picked and possible moves
     # ask for desired move
     # check validity of move
