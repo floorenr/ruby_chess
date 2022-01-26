@@ -30,7 +30,7 @@ class Board
 
   def calc_all_moves
     @board_array.each do |square|
-      square['content'].calc_moves
+      square['content'].calc_moves(self)
     end
   end
 

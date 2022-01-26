@@ -21,7 +21,7 @@ class Rook
     @moves_array = []
   end
 
-  def calc_moves
+  def calc_moves(current_board)
     directions = [[0, 1], [1, 0], [-1, 0], [0, -1]]
     directions.each do |direction|
       temp_pos = @pos.dup
@@ -29,9 +29,9 @@ class Rook
         temp_pos[0] = (temp_pos[0].ord + direction[0]).chr
         temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
         break if offboard?(temp_pos)
-        break if $game.board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
+        break if current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
         @moves_array << temp_pos
-        break if $game.board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
+        break if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       end
     end
   end
@@ -48,13 +48,13 @@ class Knight
     @moves_array = []
   end
 
-  def calc_moves
+  def calc_moves(current_board)
     directions = [[1, 2], [2, 1], [2, -1], [1, -2], [-1, -2], [-2, -1], [-2, 1], [-1, 2]]
     directions.each do |direction|
       temp_pos = @pos.dup
       temp_pos[0] = (temp_pos[0].ord + direction[0]).chr
       temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
-      next if offboard?(temp_pos) || $game.board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
+      next if offboard?(temp_pos) || current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
       @moves_array << temp_pos
     end
   end
@@ -71,7 +71,7 @@ class Bishop
     @moves_array = []
   end
 
-  def calc_moves
+  def calc_moves(current_board)
     directions = [[1, 1], [1, -1], [-1, -1], [-1, 1]]
     directions.each do |direction|
       temp_pos = @pos.dup
@@ -79,9 +79,9 @@ class Bishop
         temp_pos[0] = (temp_pos[0].ord + direction[0]).chr
         temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
         break if offboard?(temp_pos)
-        break if $game.board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
+        break if current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
         @moves_array << temp_pos
-        break if $game.board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
+        break if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       end
     end
   end
@@ -98,7 +98,7 @@ class Queen
     @moves_array = []
   end
 
-  def calc_moves
+  def calc_moves(current_board)
     directions = [[1, 1], [1, -1], [-1, -1], [-1, 1], [0, 1], [1, 0], [-1, 0], [0, -1]]
     directions.each do |direction|
       temp_pos = @pos.dup
@@ -106,9 +106,9 @@ class Queen
         temp_pos[0] = (temp_pos[0].ord + direction[0]).chr
         temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
         break if offboard?(temp_pos)
-        break if $game.board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
+        break if current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
         @moves_array << temp_pos
-        break if $game.board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
+        break if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       end
     end
   end
@@ -125,13 +125,13 @@ class King
     @moves_array = []
   end
 
-  def calc_moves
+  def calc_moves(current_board)
     directions = [[1, 1], [1, -1], [-1, -1], [-1, 1], [0, 1], [1, 0], [-1, 0], [0, -1]]
     directions.each do |direction|
       temp_pos = @pos.dup
       temp_pos[0] = (temp_pos[0].ord + direction[0]).chr
       temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
-      next if offboard?(temp_pos) || $game.board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
+      next if offboard?(temp_pos) || current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
       @moves_array << temp_pos
     end
      # TO DO: filter any moves that is attacked by opponent
@@ -149,7 +149,7 @@ class Pawn
     @moves_array = []
   end
 
-  def calc_moves
+  def calc_moves(current_board)
     cond_directions = [[-1, 1], [1, 1]]
     if @pos[1] == '2' || @pos[1] == '7'
       directions = [[0, 1], [0, 2]]
@@ -159,8 +159,8 @@ class Pawn
     directions.each do |direction|
       temp_pos = @pos.dup
       temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
-      next if offboard?(temp_pos) || $game.board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
-      next if $game.board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
+      next if offboard?(temp_pos) || current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
+      next if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       @moves_array << temp_pos
     end
     cond_directions.each do |direction|
@@ -168,7 +168,7 @@ class Pawn
       temp_pos[0] = (temp_pos[0].ord + direction[0]).chr
       temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
       next if offboard?(temp_pos)
-      @moves_array << temp_pos if $game.board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
+      @moves_array << temp_pos if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
     end
   end
 end
@@ -181,5 +181,5 @@ class EmptySpace
     @color = nil
   end
 
-  def calc_moves; end
+  def calc_moves(current_board); end
 end
