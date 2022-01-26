@@ -31,6 +31,7 @@ class Rook
         temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
         break if offboard?(temp_pos)
         break if current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
+
         @moves_array << temp_pos
         break if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       end
@@ -57,6 +58,7 @@ class Knight
       temp_pos[0] = (temp_pos[0].ord + direction[0]).chr
       temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
       next if offboard?(temp_pos) || current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
+
       @moves_array << temp_pos
     end
   end
@@ -83,6 +85,7 @@ class Bishop
         temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
         break if offboard?(temp_pos)
         break if current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
+
         @moves_array << temp_pos
         break if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       end
@@ -111,6 +114,7 @@ class Queen
         temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
         break if offboard?(temp_pos)
         break if current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
+
         @moves_array << temp_pos
         break if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       end
@@ -137,9 +141,10 @@ class King
       temp_pos[0] = (temp_pos[0].ord + direction[0]).chr
       temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
       next if offboard?(temp_pos) || current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
+
       @moves_array << temp_pos
     end
-     # TO DO: filter any moves that is attacked by opponent
+    # TO DO: filter any moves that is attacked by opponent
   end
 end
 
@@ -157,16 +162,17 @@ class Pawn
   def calc_moves(current_board)
     @moves_array = []
     cond_directions = [[-1, 1], [1, 1]]
-    if @pos[1] == '2' || @pos[1] == '7'
-      directions = [[0, 1], [0, 2]]
-    else
-      directions = [[0, 1]]
-    end
+    directions = if @pos[1] == '2' || @pos[1] == '7'
+                   [[0, 1], [0, 2]]
+                 else
+                   [[0, 1]]
+                 end
     directions.each do |direction|
       temp_pos = @pos.dup
       temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
       next if offboard?(temp_pos) || current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
       next if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
+
       @moves_array << temp_pos
     end
     cond_directions.each do |direction|
@@ -174,6 +180,7 @@ class Pawn
       temp_pos[0] = (temp_pos[0].ord + direction[0]).chr
       temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
       next if offboard?(temp_pos)
+
       @moves_array << temp_pos if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
     end
   end
@@ -187,5 +194,5 @@ class EmptySpace
     @color = nil
   end
 
-  def calc_moves(current_board) ; end
+  def calc_moves(current_board); end
 end
