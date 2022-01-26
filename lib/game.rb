@@ -48,7 +48,8 @@ class Game
     sel_square['content'].moves_array.each {|move| print move.join + ' '}
     puts "\n"
     return init_move unless @prompt.yes?("Continue with this piece?")
-    # ask for desired move
+    choices = sel_square['content'].moves_array.collect {|x| x.join}
+    new_square = @prompt.select("Choose a move:", choices).split(//)
     # check validity of move
     make_move
   end
