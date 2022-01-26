@@ -58,5 +58,6 @@ class Game
   def make_move(sel_square, new_square)
     new_square['content'] = sel_square['content'].dup
     sel_square['content'] = EmptySpace.new
+    # run game_loop again for other user
   end
 end
