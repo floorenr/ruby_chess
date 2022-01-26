@@ -51,7 +51,6 @@ class Game
     choices = sel_square['content'].moves_array.collect {|x| x.join}
     new_square_loc = @prompt.select("Choose a move:", choices).split(//)
     new_square = @board.find_square(new_square_loc[0], new_square_loc[1].to_i)
-    # check validity of move
     make_move
   end
 
