@@ -52,10 +52,11 @@ class Game
     choices = sel_square['content'].moves_array.collect(&:join)
     new_square_loc = @prompt.select('Choose a move:', choices).split(//)
     new_square = @board.find_square(new_square_loc[0], new_square_loc[1].to_i)
-    make_move
+    make_move(sel_square, new_square)
   end
 
-  def make_move
-    # make the move
+  def make_move(sel_square, new_square)
+    new_square['content'] = sel_square['content'].dup
+    sel_square['content'] = EmptySpace.new
   end
 end
