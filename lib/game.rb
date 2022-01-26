@@ -43,7 +43,10 @@ class Game
         "has no possible moves.\nPick another one"
       return init_move
     end
-    # tell player which piece was picked and possible moves
+    puts "Your #{sel_square['content'].class} at #{sel_square['content'].pos.join} "\
+        "has the following possible moves:"
+    sel_square['content'].moves_array.each {|move| print move.join + ' '}
+    puts "\n"
     # ask for desired move
     # check validity of move
     make_move
