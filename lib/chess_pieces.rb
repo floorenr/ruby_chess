@@ -74,7 +74,7 @@ class Bishop
   def calc_moves
     directions = [[1, 1], [1, -1], [-1, -1], [-1, 1]]
     directions.each do |direction|
-      p temp_pos = @pos.dup
+      temp_pos = @pos.dup
       loop do
         temp_pos[0] = (temp_pos[0].ord + direction[0]).chr
         temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
@@ -88,16 +88,29 @@ class Bishop
 end
 
 class Queen
+  include ChessPiece
   attr_accessor :graphic, :color, :pos
 
   def initialize(pos, color = 'black')
     @color = color
     @graphic = @color == 'black' ? "\u265B" : "\u2655"
     @pos = pos.split(//)
+    @moves_array = []
   end
 
   def calc_moves
-    # @moves_array =
+    directions = [[1, 1], [1, -1], [-1, -1], [-1, 1], [0, 1], [1, 0], [-1, 0], [0, -1]]
+    directions.each do |direction|
+      temp_pos = @pos.dup
+      loop do
+        temp_pos[0] = (temp_pos[0].ord + direction[0]).chr
+        temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
+        break if offboard?(temp_pos)
+        break if $game.board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
+        @moves_array << temp_pos
+        break if $game.board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
+      end
+    end
   end
 end
 
