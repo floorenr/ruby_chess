@@ -38,7 +38,12 @@ class Game
       puts 'Square does not hold one of your pieces, try again'
       return init_move
     end
-    # return to init_move when sel_square['content'].moves_array is an empty array
+    if sel_square['content'].moves_array.empty?
+      puts "Your #{sel_square['content'].class} at #{sel_square['content'].pos.join} "\
+        "has no possible moves.\nPick another one"
+      return init_move
+    end
+
     # tell player which piece was picked and possible moves
     # ask for desired move
     # check validity of move

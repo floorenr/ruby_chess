@@ -12,7 +12,7 @@ end
 
 class Rook
   include ChessPiece
-  attr_accessor :graphic, :color, :pos
+  attr_accessor :graphic, :color, :pos, :moves_array
 
   def initialize(pos, color = 'black')
     @color = color
@@ -39,7 +39,7 @@ end
 
 class Knight
   include ChessPiece
-  attr_accessor :graphic, :color, :pos
+  attr_accessor :graphic, :color, :pos, :moves_array
 
   def initialize(pos, color = 'black')
     @color = color
@@ -62,7 +62,7 @@ end
 
 class Bishop
   include ChessPiece
-  attr_accessor :graphic, :color, :pos
+  attr_accessor :graphic, :color, :pos, :moves_array
 
   def initialize(pos, color = 'black')
     @color = color
@@ -89,7 +89,7 @@ end
 
 class Queen
   include ChessPiece
-  attr_accessor :graphic, :color, :pos
+  attr_accessor :graphic, :color, :pos, :moves_array
 
   def initialize(pos, color = 'black')
     @color = color
@@ -116,7 +116,7 @@ end
 
 class King
   include ChessPiece
-  attr_accessor :graphic, :color, :pos
+  attr_accessor :graphic, :color, :pos, :moves_array
 
   def initialize(pos, color = 'black')
     @color = color
@@ -140,7 +140,7 @@ end
 
 class Pawn
   include ChessPiece
-  attr_accessor :graphic, :color, :pos
+  attr_accessor :graphic, :color, :pos, :moves_array
 
   def initialize(pos, color = 'black')
     @color = color
