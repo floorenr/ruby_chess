@@ -47,6 +47,7 @@ class Game
         "has the following possible moves:"
     sel_square['content'].moves_array.each {|move| print move.join + ' '}
     puts "\n"
+    return init_move unless @prompt.yes?("Continue with this piece?")
     # ask for desired move
     # check validity of move
     make_move
