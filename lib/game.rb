@@ -49,7 +49,8 @@ class Game
     puts "\n"
     return init_move unless @prompt.yes?("Continue with this piece?")
     choices = sel_square['content'].moves_array.collect {|x| x.join}
-    new_square = @prompt.select("Choose a move:", choices).split(//)
+    new_square_loc = @prompt.select("Choose a move:", choices).split(//)
+    new_square = @board.find_square(new_square_loc[0], new_square_loc[1].to_i)
     # check validity of move
     make_move
   end
