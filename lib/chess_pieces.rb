@@ -115,16 +115,26 @@ class Queen
 end
 
 class King
+  include ChessPiece
   attr_accessor :graphic, :color, :pos
 
   def initialize(pos, color = 'black')
     @color = color
     @graphic = @color == 'black' ? "\u265A" : "\u2654"
     @pos = pos.split(//)
+    @moves_array = []
   end
 
   def calc_moves
-    # @moves_array =
+    directions = [[1, 1], [1, -1], [-1, -1], [-1, 1], [0, 1], [1, 0], [-1, 0], [0, -1]]
+    directions.each do |direction|
+      temp_pos = @pos.dup
+      temp_pos[0] = (temp_pos[0].ord + direction[0]).chr
+      temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
+      next if offboard?(temp_pos) || $game.board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
+      @moves_array << temp_pos
+    end
+     # TO DO: filter any moves that is attacked by opponent
   end
 end
 
