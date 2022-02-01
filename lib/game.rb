@@ -16,7 +16,6 @@ class Game
   def initialize
     @board = Board.new
     @cur_player = 'white'
-    @prompt = TTY::Prompt.new
     @player_sel = nil
   end
 
@@ -29,19 +28,19 @@ class Game
 
   def turn_message
     choices = ['Make a move', 'Save game']
-    @player_sel = @prompt.select("Player #{@cur_player.upcase}, make your choice", choices)
+    @player_sel = $prompt.select("Player #{@cur_player.upcase}, make your choice", choices)
   end
 
   def save_game
-    save_name = @prompt.ask("Choose a name for saved game")
+    save_name = $prompt.ask("Choose a name for saved game")
     puts "Game saved".light_cyan
     File.open("./saved_games/#{save_name}.yml", "w") { |f| YAML.dump(self, f) }
     init_move
   end
 
   def init_move
-    column_choice = @prompt.ask('Pick column (a-h)') { |q| q.in('a-h') }
-    row_choice = @prompt.ask('Pick row (1-8)') { |q| q.in('1-8') }.to_i
+    column_choice = $prompt.ask('Pick column (a-h)') { |q| q.in('a-h') }
+    row_choice = $prompt.ask('Pick row (1-8)') { |q| q.in('1-8') }.to_i
     sel_square = @board.find_square(column_choice, row_choice)
     unless sel_square['content'].color == @cur_player
       puts 'Square does not hold one of your pieces, try again'
@@ -56,10 +55,10 @@ class Game
         'has the following possible moves:'
     sel_square['content'].moves_array.sort.each { |move| print "#{move.join} " }
     puts "\n"
-    return init_move unless @prompt.yes?('Continue with this piece? (Press ENTER or "n")', default: "Y")
+    return init_move unless $prompt.yes?('Continue with this piece? (Press ENTER or "n")', default: "Y")
 
     choices = sel_square['content'].moves_array.collect(&:join).sort
-    new_square_loc = @prompt.select('Choose a move:', choices).split(//)
+    new_square_loc = $prompt.select('Choose a move:', choices).split(//)
     new_square = @board.find_square(new_square_loc[0], new_square_loc[1].to_i)
     make_move(sel_square, new_square)
   end
