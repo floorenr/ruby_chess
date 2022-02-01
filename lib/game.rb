@@ -43,7 +43,6 @@ class Game
         "has no possible moves.\nPick another one"
       return init_move
     end
-    p sel_square
     puts "Your #{sel_square['content'].class} at #{sel_square['content'].pos.join} "\
         'has the following possible moves:'
     sel_square['content'].moves_array.each { |move| print "#{move.join} " }
