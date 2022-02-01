@@ -156,20 +156,14 @@ class Pawn
     @graphic = @color == 'black' ? "\u265F" : "\u2659"
     @pos = pos.split(//)
     @moves_array = []
+    @capture_moves_array = []
   end
 
   def calc_moves(current_board)
     @moves_array = []
+    @capture_moves_array = []
     capture_directions = determine_capture_directions
     directions = determine_directions
-    directions.each do |direction|
-      temp_pos = @pos.dup
-      temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
-      next if offboard?(temp_pos) || current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
-      next if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
-
-      @moves_array << temp_pos.dup
-    end
     capture_directions.each do |direction|
       temp_pos = @pos.dup
       temp_pos[0] = (temp_pos[0].ord + direction[0]).chr
@@ -177,6 +171,15 @@ class Pawn
       next if offboard?(temp_pos)
 
       @moves_array << temp_pos.dup if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
+    end
+    @capture_moves_array = @moves_array.dup
+    directions.each do |direction|
+      temp_pos = @pos.dup
+      temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
+      next if offboard?(temp_pos) || current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
+      next if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
+
+      @moves_array << temp_pos.dup
     end
   end
 
