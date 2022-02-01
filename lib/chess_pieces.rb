@@ -198,7 +198,7 @@ class Pawn
   end
 
   def determine_capture_directions
-    @color == 'white' ? [[-1, 1], [1, 1]] ; [[1, -1], [-1, -1]]
+    @color == 'white' ? [[-1, 1], [1, 1]] : [[1, -1], [-1, -1]]
   end
 end
 
