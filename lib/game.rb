@@ -67,7 +67,7 @@ class Game
     duplicate.pos = new_square['content'].pos
     new_square['content'] = duplicate
     sel_square['content'] = EmptySpace.new(sel_square['content'].pos)
-    @cur_player == 'white'? @cur_player = 'black' : @cur_player = 'white'
+    @cur_player = @cur_player == 'white' ? 'black' : 'white'
     game_loop
   end
 end

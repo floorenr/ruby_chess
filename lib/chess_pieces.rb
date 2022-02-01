@@ -187,12 +187,10 @@ class Pawn
       else
         [[0, 1]]
       end
+    elsif @pos[1] == '7'
+      [[0, -1], [0, -2]]
     else
-      if @pos[1] == '7'
-        [[0, -1], [0, -2]]
-      else
-        [[0, -1]]
-      end
+      [[0, -1]]
     end
   end
 end
