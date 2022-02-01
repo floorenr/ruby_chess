@@ -8,6 +8,7 @@ require_relative 'board'
 # promote Pawn to Queen when reaching end of board
 # introduce castling
 # introduce en passant for Pawn
+# introduce option to resign
 
 class Game
   attr_accessor :board
