@@ -2,6 +2,13 @@
 
 require_relative 'board'
 
+# TODO:
+# Filter any moves that put yourself in check
+# check for check and checkmate and stalemate
+# promote Pawn to Queen when reaching end of board
+# introduce castling
+# introduce en passant for Pawn
+
 class Game
   attr_accessor :board
 

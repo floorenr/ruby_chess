@@ -144,7 +144,6 @@ class King
 
       @moves_array << temp_pos.dup
     end
-    # TO DO: filter any moves that is attacked by opponent
   end
 end
 
