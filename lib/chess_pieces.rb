@@ -182,7 +182,7 @@ class Pawn
   end
 
   def determine_directions
-    if @color = 'white'
+    if @color == 'white'
       if @pos[1] == '2'
         [[0, 1], [0, 2]]
       else

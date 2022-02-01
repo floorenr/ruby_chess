@@ -43,6 +43,7 @@ class Game
         "has no possible moves.\nPick another one"
       return init_move
     end
+    p sel_square
     puts "Your #{sel_square['content'].class} at #{sel_square['content'].pos.join} "\
         'has the following possible moves:'
     sel_square['content'].moves_array.each { |move| print "#{move.join} " }
@@ -58,7 +59,7 @@ class Game
   def make_move(sel_square, new_square)
     new_square['content'] = sel_square['content'].dup
     sel_square['content'] = EmptySpace.new
-    @cur_player = 'white'? @cur_player = 'black' : @cur_player = 'white'
+    @cur_player == 'white'? @cur_player = 'black' : @cur_player = 'white'
     game_loop
   end
 end
