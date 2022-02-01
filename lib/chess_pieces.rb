@@ -162,11 +162,7 @@ class Pawn
   def calc_moves(current_board)
     @moves_array = []
     cond_directions = [[-1, 1], [1, 1]]
-    directions = if @pos[1] == '2' || @pos[1] == '7'
-                   [[0, 1], [0, 2]]
-                 else
-                   [[0, 1]]
-                 end
+    directions = determine_directions
     directions.each do |direction|
       temp_pos = @pos.dup
       temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
@@ -182,6 +178,22 @@ class Pawn
       next if offboard?(temp_pos)
 
       @moves_array << temp_pos if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
+    end
+  end
+
+  def determine_directions
+    if @color = 'white'
+      if @pos[1] == '2'
+        [[0, 1], [0, 2]]
+      else
+        [[0, 1]]
+      end
+    else
+      if @pos[1] == '7'
+        [[0, -1], [0, -2]]
+      else
+        [[0, -1]]
+      end
     end
   end
 end
