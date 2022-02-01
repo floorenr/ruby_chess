@@ -43,17 +43,17 @@ class Game
     row_choice = $prompt.ask('Pick row (1-8)') { |q| q.in('1-8') }.to_i
     sel_square = @board.find_square(column_choice, row_choice)
     unless sel_square['content'].color == @cur_player
-      puts 'Square does not hold one of your pieces, try again'
+      puts 'Square does not hold one of your pieces, try again'.red
       return init_move
     end
     if sel_square['content'].moves_array.empty?
       puts "Your #{sel_square['content'].class} at #{sel_square['content'].pos.join} "\
-        "has no possible moves.\nPick another one"
+        "has no possible moves.\nPick another one".red
       return init_move
     end
     puts "Your #{sel_square['content'].class} at #{sel_square['content'].pos.join} "\
         'has the following possible moves:'
-    sel_square['content'].moves_array.sort.each { |move| print "#{move.join} " }
+    sel_square['content'].moves_array.sort.each { |move| print "#{move.join} ".magenta }
     puts "\n"
     return init_move unless $prompt.yes?('Continue with this piece? (Press ENTER or "n")', default: "Y")
 
