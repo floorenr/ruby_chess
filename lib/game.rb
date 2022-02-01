@@ -54,7 +54,7 @@ class Game
         'has the following possible moves:'
     sel_square['content'].moves_array.sort.each { |move| print "#{move.join} " }
     puts "\n"
-    return init_move unless @prompt.yes?('Continue with this piece?')
+    return init_move unless @prompt.yes?('Continue with this piece? (Press ENTER or "n")', default: "Y")
 
     choices = sel_square['content'].moves_array.collect(&:join).sort
     new_square_loc = @prompt.select('Choose a move:', choices).split(//)
