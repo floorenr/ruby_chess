@@ -45,7 +45,7 @@ class Game
     end
     puts "Your #{sel_square['content'].class} at #{sel_square['content'].pos.join} "\
         'has the following possible moves:'
-    sel_square['content'].moves_array.each { |move| print "#{move.join} " }
+    sel_square['content'].moves_array.sort.each { |move| print "#{move.join} " }
     puts "\n"
     return init_move unless @prompt.yes?('Continue with this piece?')
 
@@ -56,8 +56,10 @@ class Game
   end
 
   def make_move(sel_square, new_square)
-    new_square['content'] = sel_square['content'].dup
-    sel_square['content'] = EmptySpace.new
+    duplicate = sel_square['content'].dup
+    duplicate.pos = new_square['content'].pos
+    new_square['content'] = duplicate
+    sel_square['content'] = EmptySpace.new(sel_square['content'].pos)
     @cur_player == 'white'? @cur_player = 'black' : @cur_player = 'white'
     game_loop
   end

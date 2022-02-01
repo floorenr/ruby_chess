@@ -9,7 +9,7 @@ class Board
     @board_array = []
     (1..8).each do |i|
       ('a'..'h').each do |j|
-        @board_array << { 'column' => j, 'row' => i, 'content' => EmptySpace.new }
+        @board_array << { 'column' => j, 'row' => i, 'content' => EmptySpace.new([j, i]) }
       end
     end
     init_board

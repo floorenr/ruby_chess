@@ -199,11 +199,12 @@ class Pawn
 end
 
 class EmptySpace
-  attr_accessor :graphic, :color
+  attr_accessor :graphic, :color, :pos
 
-  def initialize
+  def initialize(pos)
     @graphic = ' '
     @color = nil
+    @pos = pos
   end
 
   def calc_moves(current_board); end
