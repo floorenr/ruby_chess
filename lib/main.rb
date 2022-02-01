@@ -14,6 +14,10 @@ end
 
 def saved_game
   games = Dir["./saved_games/*"].map! {|x| x[14..-5]}
+  if games.empty?
+    puts "No saved games available, new game started".red
+    return new_game
+  end
   chosen_game = $prompt.select('Choose a game:', games)
   game = YAML.load_file("./saved_games/#{chosen_game}.yml")
   game.game_loop
