@@ -33,9 +33,10 @@ class Game
   end
 
   def save_game
-    # serialize itself
-    # save to new file
-    # return to game_loop
+    save_name = @prompt.ask("Choose a name for saved game")
+    puts "Game saved".light_cyan
+    File.open("#{save_name}.yml", "w") { |f| YAML.dump(self, f) }
+    init_move
   end
 
   def init_move
