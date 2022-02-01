@@ -65,6 +65,16 @@ class Board
     end
   end
 
+  def in_check?(player)
+    opp_player = player == 'white'? 'black' : 'white'
+    king_sq = @board_array.select { |sq| (sq['content'].is_a?(King) && sq['content'].color == player) }[0]
+    opp_player_capture_moves = @board_array.select {|sq| sq['content'].color == opp_player && sq['content'].class != Pawn }
+      .map {|sq| sq['content'].moves_array}.flatten(1) +
+      @board_array.select {|sq| sq['content'].color == opp_player && sq['content'].class == Pawn }
+      .map {|sq| sq['content'].capture_moves_array}.flatten(1)
+    opp_player_capture_moves.include?(king_sq['content'].pos)
+  end
+
   def create_setup
     @init_setup = [
       ['a', 1, Rook.new('a1', 'white')],
