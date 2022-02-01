@@ -160,7 +160,7 @@ class Pawn
 
   def calc_moves(current_board)
     @moves_array = []
-    cond_directions = [[-1, 1], [1, 1]]
+    capture_directions = determine_capture_directions
     directions = determine_directions
     directions.each do |direction|
       temp_pos = @pos.dup
@@ -170,7 +170,7 @@ class Pawn
 
       @moves_array << temp_pos.dup
     end
-    cond_directions.each do |direction|
+    capture_directions.each do |direction|
       temp_pos = @pos.dup
       temp_pos[0] = (temp_pos[0].ord + direction[0]).chr
       temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
@@ -192,6 +192,10 @@ class Pawn
     else
       [[0, -1]]
     end
+  end
+
+  def determine_capture_directions
+    @color == 'white' ? [[-1, 1], [1, 1]] ; [[1, -1], [-1, -1]]
   end
 end
 
