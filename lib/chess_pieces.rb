@@ -149,7 +149,7 @@ end
 
 class Pawn
   include ChessPiece
-  attr_accessor :graphic, :color, :pos, :moves_array
+  attr_accessor :graphic, :color, :pos, :moves_array, :capture_moves_array
 
   def initialize(pos, color = 'black')
     @color = color
