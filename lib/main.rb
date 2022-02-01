@@ -2,6 +2,8 @@
 
 require_relative 'game'
 require 'tty-prompt'
+require 'yaml'
+require 'colorize'
 
 def new_game
   game = Game.new
