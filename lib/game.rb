@@ -5,7 +5,7 @@ require_relative 'board'
 # TODO:
 # Filter any moves that put yourself in check
 # check for checkmate and stalemate
-# promote Pawn to Queen when reaching end of board
+# increase visibility of board pieces
 # introduce castling
 # introduce en passant for Pawn
 # introduce option to resign
