@@ -32,7 +32,7 @@ class Rook
         break if offboard?(temp_pos)
         break if current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
 
-        @moves_array << temp_pos
+        @moves_array << temp_pos.dup
         break if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       end
     end
@@ -59,7 +59,7 @@ class Knight
       temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
       next if offboard?(temp_pos) || current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
 
-      @moves_array << temp_pos
+      @moves_array << temp_pos.dup
     end
   end
 end
@@ -86,7 +86,7 @@ class Bishop
         break if offboard?(temp_pos)
         break if current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
 
-        @moves_array << temp_pos
+        @moves_array << temp_pos.dup
         break if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       end
     end
@@ -115,7 +115,7 @@ class Queen
         break if offboard?(temp_pos)
         break if current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
 
-        @moves_array << temp_pos
+        @moves_array << temp_pos.dup
         break if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       end
     end
@@ -142,7 +142,7 @@ class King
       temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
       next if offboard?(temp_pos) || current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
 
-      @moves_array << temp_pos
+      @moves_array << temp_pos.dup
     end
     # TO DO: filter any moves that is attacked by opponent
   end
@@ -169,7 +169,7 @@ class Pawn
       next if offboard?(temp_pos) || current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
       next if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
 
-      @moves_array << temp_pos
+      @moves_array << temp_pos.dup
     end
     cond_directions.each do |direction|
       temp_pos = @pos.dup
@@ -177,7 +177,7 @@ class Pawn
       temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
       next if offboard?(temp_pos)
 
-      @moves_array << temp_pos if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
+      @moves_array << temp_pos.dup if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
     end
   end
 
