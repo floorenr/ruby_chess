@@ -903,7 +903,7 @@ prompt: !ruby/object:TTY::Prompt
       max_size: 512
       index: 0
       history:
-      - Test
+      - test2
       duplicates: false
       exclude: *36
       cycle: false
