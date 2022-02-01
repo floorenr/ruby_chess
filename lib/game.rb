@@ -69,7 +69,17 @@ class Game
     duplicate.pos = new_square['content'].pos
     new_square['content'] = duplicate
     sel_square['content'] = EmptySpace.new(sel_square['content'].pos)
+    promote_pawn(new_square)
     @cur_player = @cur_player == 'white' ? 'black' : 'white'
     game_loop
+  end
+
+  def promote_pawn(sq)
+    if @cur_player == 'white' && sq['content'].is_a?(Pawn) && sq['row'] == 8
+      sq['content'] = Queen.new("#{sq['column']}#{sq['row'].to_s}", 'white')
+    end
+    if @cur_player == 'black' && sq['content'].is_a?(Pawn) && sq['row'] == 1
+      sq['content'] = Queen.new("#{sq['column']}#{sq['row'].to_s}", 'black')
+    end
   end
 end
