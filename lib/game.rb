@@ -4,7 +4,7 @@ require_relative 'board'
 
 # TODO:
 # Filter any moves that put yourself in check
-# check for check and checkmate and stalemate
+# check for checkmate and stalemate
 # promote Pawn to Queen when reaching end of board
 # introduce castling
 # introduce en passant for Pawn
@@ -27,6 +27,7 @@ class Game
   end
 
   def turn_message
+    puts "CHECK!".magenta if @board.in_check?(@cur_player)
     choices = ['Make a move', 'Save game']
     @player_sel = $prompt.select("Player #{@cur_player.upcase}, make your choice", choices)
   end
