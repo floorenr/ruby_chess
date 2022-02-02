@@ -8,7 +8,7 @@ require 'colorize'
 $prompt = TTY::Prompt.new
 
 def new_game
-  puts "(black is colored magenta for readability"
+  puts "(black is colored magenta for readability)"
   game = Game.new
   game.game_loop
 end
