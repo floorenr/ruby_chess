@@ -16,7 +16,7 @@ class Rook
 
   def initialize(pos, color = 'black')
     @color = color
-    @graphic = @color == 'black' ? "\u265C" : "\u2656"
+    @graphic = @color == 'black' ? "\u2656".magenta : "\u2656"
     @pos = pos.split(//)
     @moves_array = []
   end
@@ -45,7 +45,7 @@ class Knight
 
   def initialize(pos, color = 'black')
     @color = color
-    @graphic = @color == 'black' ? "\u265E" : "\u2658"
+    @graphic = @color == 'black' ? "\u2658".magenta : "\u2658"
     @pos = pos.split(//)
     @moves_array = []
   end
@@ -70,7 +70,7 @@ class Bishop
 
   def initialize(pos, color = 'black')
     @color = color
-    @graphic = @color == 'black' ? "\u265D" : "\u2657"
+    @graphic = @color == 'black' ? "\u2657".magenta : "\u2657"
     @pos = pos.split(//)
     @moves_array = []
   end
@@ -99,7 +99,7 @@ class Queen
 
   def initialize(pos, color = 'black')
     @color = color
-    @graphic = @color == 'black' ? "\u265B" : "\u2655"
+    @graphic = @color == 'black' ? "\u2655".magenta : "\u2655"
     @pos = pos.split(//)
     @moves_array = []
   end
@@ -128,7 +128,7 @@ class King
 
   def initialize(pos, color = 'black')
     @color = color
-    @graphic = @color == 'black' ? "\u265A" : "\u2654"
+    @graphic = @color == 'black' ? "\u2654".magenta : "\u2654"
     @pos = pos.split(//)
     @moves_array = []
   end
@@ -153,7 +153,7 @@ class Pawn
 
   def initialize(pos, color = 'black')
     @color = color
-    @graphic = @color == 'black' ? "\u265F" : "\u2659"
+    @graphic = @color == 'black' ? "\u2659".magenta : "\u2659"
     @pos = pos.split(//)
     @moves_array = []
     @capture_moves_array = []
