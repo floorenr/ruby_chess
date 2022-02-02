@@ -1,3 +1,5 @@
 # ruby_chess
 
-[![Run on Repl.it](https://repl.it/badge/github/floorenr/ruby_chess)](https://repl.it/github/floorenr/ruby_chess)
+Click on link to run it on REPLIT:
+https://replit.com/@floorenr/rubychess
+CLick on the green 'run' button to start
