@@ -8,6 +8,11 @@ module ChessPiece
       true
     end
   end
+
+  def puts_yourself_check?(move)
+    # should return true when move puts player check
+    false
+  end
 end
 
 class Rook
@@ -36,6 +41,7 @@ class Rook
         break if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       end
     end
+    @moves_array.keep_if {|move| puts_yourself_check?(move) == false }
   end
 end
 
@@ -61,6 +67,7 @@ class Knight
 
       @moves_array << temp_pos.dup
     end
+    @moves_array.keep_if {|move| puts_yourself_check?(move) == false }
   end
 end
 
@@ -90,6 +97,7 @@ class Bishop
         break if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       end
     end
+    @moves_array.keep_if {|move| puts_yourself_check?(move) == false }
   end
 end
 
@@ -119,6 +127,7 @@ class Queen
         break if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       end
     end
+    @moves_array.keep_if {|move| puts_yourself_check?(move) == false }
   end
 end
 
@@ -144,6 +153,7 @@ class King
 
       @moves_array << temp_pos.dup
     end
+    @moves_array.keep_if {|move| puts_yourself_check?(move) == false }
   end
 end
 
@@ -181,6 +191,8 @@ class Pawn
 
       @moves_array << temp_pos.dup
     end
+    @moves_array.keep_if {|move| puts_yourself_check?(move) == false }
+    @capture_moves_array.keep_if {|move| puts_yourself_check?(move) == false }
   end
 
   def determine_directions
