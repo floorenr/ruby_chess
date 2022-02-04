@@ -8,6 +8,7 @@ require_relative 'board'
 # introduce castling
 # introduce en passant for Pawn
 # introduce option to resign
+# Show who's turn it is
 
 class Game
   attr_accessor :board
@@ -20,15 +21,8 @@ class Game
 
   def game_loop
     @board.print_board
-    turn_message
-    save_game if @player_sel == 'Save game'
-    init_move if @player_sel == 'Make a move'
-  end
-
-  def turn_message
     puts "CHECK!".magenta if @board.in_check?(@cur_player)
-    choices = ['Make a move', 'Save game']
-    @player_sel = $prompt.select("Player #{@cur_player.upcase}, make your choice", choices)
+    init_move
   end
 
   def save_game
@@ -39,7 +33,10 @@ class Game
   end
 
   def init_move
-    column_choice = $prompt.ask('Pick column (a-h)') { |q| q.in('a-h') }
+    column_choice = prompt_column
+    return save_game if column_choice == 'i'
+    return resign if column_choice == 'j' && $prompt.yes?('Are you sure you wish to resign?')
+    return init_move if column_choice == 'j'
     row_choice = $prompt.ask('Pick row (1-8)') { |q| q.in('1-8') }.to_i
     sel_square = @board.find_square(column_choice, row_choice)
     unless sel_square['content'].color == @cur_player
@@ -61,6 +58,25 @@ class Game
     new_square_loc = $prompt.select('Choose a move:', choices).split(//)
     new_square = @board.find_square(new_square_loc[0], new_square_loc[1].to_i)
     make_move(sel_square, new_square)
+  end
+
+  def prompt_column
+    column_choice = $prompt.ask("Pick column (a-h), 'i' to save game or 'j' to resign") do |q|
+      q.in('a-j')
+    end
+  end
+
+  def resign
+    winner = @cur_player == 'white' ? 'black' : 'white'
+    puts "Player #{@cur_player} resign".red
+    puts "Player #{winner} wins!".green
+    return if $prompt.no?('Play a new game?')
+    return new_game
+  end
+
+  def new_game
+    puts "Play new game"
+    # unifinished
   end
 
   def make_move(sel_square, new_square)
