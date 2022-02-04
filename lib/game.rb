@@ -7,7 +7,6 @@ require_relative 'board'
 # check for checkmate and stalemate
 # introduce castling
 # introduce en passant for Pawn
-# introduce option to resign
 
 class Game
   attr_accessor :board
