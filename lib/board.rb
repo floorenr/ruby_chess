@@ -15,8 +15,8 @@ class Board
     init_board
   end
 
-  def print_board
-    calc_all_moves
+  def print_board(cur_player)
+    calc_all_moves(cur_player)
     rows = @board_array.each_slice(8).to_a
     puts "  ┌#{"#{"\u2500" * 3}┬" * 7}#{"\u2500" * 3}┐ BLACK"
     rows.reverse.each do |row|
@@ -28,9 +28,9 @@ class Board
     puts "    #{[*'a'..'h'].join('   ')}\n\n"
   end
 
-  def calc_all_moves
+  def calc_all_moves(cur_player)
     @board_array.each do |square|
-      square['content'].calc_moves(self)
+      square['content'].calc_moves(self, cur_player)
     end
   end
 
