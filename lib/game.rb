@@ -70,13 +70,14 @@ class Game
     winner = @cur_player == 'white' ? 'black' : 'white'
     puts "Player #{@cur_player} resign".red
     puts "Player #{winner} wins!".green
-    return if $prompt.no?('Play a new game?')
+    return if $prompt.no?('Play a new game?', default: "Y")
     return new_game
   end
 
   def new_game
-    puts "Play new game"
-    # unifinished
+    puts "New game!"
+    new_game = Game.new
+    new_game.game_loop
   end
 
   def make_move(sel_square, new_square)
