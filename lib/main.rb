@@ -8,15 +8,15 @@ require 'colorize'
 $prompt = TTY::Prompt.new
 
 def new_game
-  puts "(black is colored magenta for readability)"
+  puts '(black is colored magenta for readability)'
   game = Game.new
   game.game_loop
 end
 
 def saved_game
-  games = Dir["./saved_games/*"].map! {|x| x[14..-5]}
+  games = Dir['./saved_games/*'].map! { |x| x[14..-5] }
   if games.empty?
-    puts "No saved games available, new game started".red
+    puts 'No saved games available, new game started'.red
     return new_game
   end
   chosen_game = $prompt.select('Choose a game:', games)
