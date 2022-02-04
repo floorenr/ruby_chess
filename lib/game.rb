@@ -7,6 +7,7 @@ require_relative 'board'
 # check for checkmate and stalemate
 # introduce castling
 # introduce en passant for Pawn
+# CHECK DOESNT WORK AND CHECK FILTERING DOESN WORK
 
 class Game
   attr_accessor :board
@@ -15,6 +16,7 @@ class Game
     @board = Board.new
     @cur_player = 'white'
     @player_sel = nil
+    @quit_game = false
   end
 
   def game_loop
@@ -23,6 +25,7 @@ class Game
     puts 'CHECK!'.magenta if @board.in_check?(@cur_player)
     puts "Player #{@cur_player}, it's your turn".cyan
     init_move
+    return if @quit_game == true
     game_loop
   end
 
@@ -77,7 +80,7 @@ class Game
     winner = @cur_player == 'white' ? 'black' : 'white'
     puts "Player #{@cur_player} resign".red
     puts "Player #{winner} wins!".green
-    return if $prompt.no?('Play a new game?', default: 'Y')
+    return @quit_game = true if $prompt.no?('Play a new game?', default: 'Y')
 
     new_game
   end
