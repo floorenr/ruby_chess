@@ -45,7 +45,7 @@ class Game
     choices = sel_square['content'].moves_array.collect(&:join).sort
     new_square_loc = $prompt.select('Choose a move:', choices).split(//)
     new_square = @board.find_square(new_square_loc[0], new_square_loc[1].to_i)
-    make_move(sel_square, new_square)
+    @board.make_move(sel_square, new_square, @cur_player)
     @cur_player = @cur_player == 'white' ? 'black' : 'white'
   end
 
@@ -85,22 +85,5 @@ class Game
     puts 'New game!'
     new_game = Game.new
     new_game.game_loop
-  end
-
-  def make_move(sel_square, new_square)
-    duplicate = sel_square['content'].dup
-    duplicate.pos = new_square['content'].pos
-    new_square['content'] = duplicate
-    sel_square['content'] = EmptySpace.new(sel_square['content'].pos)
-    promote_pawn(new_square)
-  end
-
-  def promote_pawn(sq)
-    if @cur_player == 'white' && sq['content'].is_a?(Pawn) && sq['row'] == 8
-      sq['content'] = Queen.new("#{sq['column']}#{sq['row']}", 'white')
-    end
-    if @cur_player == 'black' && sq['content'].is_a?(Pawn) && sq['row'] == 1
-      sq['content'] = Queen.new("#{sq['column']}#{sq['row']}", 'black')
-    end
   end
 end

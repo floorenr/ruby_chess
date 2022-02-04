@@ -48,6 +48,23 @@ class Board
     end
   end
 
+  def make_move(sel_square, new_square, cur_player)
+    duplicate = sel_square['content'].dup
+    duplicate.pos = new_square['content'].pos
+    new_square['content'] = duplicate
+    sel_square['content'] = EmptySpace.new(sel_square['content'].pos)
+    promote_pawn(new_square, cur_player)
+  end
+
+  def promote_pawn(sq, cur_player)
+    if cur_player == 'white' && sq['content'].is_a?(Pawn) && sq['row'] == 8
+      sq['content'] = Queen.new("#{sq['column']}#{sq['row']}", 'white')
+    end
+    if cur_player == 'black' && sq['content'].is_a?(Pawn) && sq['row'] == 1
+      sq['content'] = Queen.new("#{sq['column']}#{sq['row']}", 'black')
+    end
+  end
+
   def find_square(column, row)
     @board_array.select { |sq| (sq['column'] == column && sq['row'] == row) }[0]
   end
