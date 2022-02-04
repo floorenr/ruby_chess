@@ -8,7 +8,6 @@ require_relative 'board'
 # introduce castling
 # introduce en passant for Pawn
 # introduce option to resign
-# Show who's turn it is
 
 class Game
   attr_accessor :board
@@ -22,6 +21,7 @@ class Game
   def game_loop
     @board.print_board
     puts "CHECK!".magenta if @board.in_check?(@cur_player)
+    puts "Player #{@cur_player}, it's your turn".cyan
     init_move
   end
 
