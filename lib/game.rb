@@ -22,6 +22,7 @@ class Game
     puts 'CHECK!'.magenta if @board.in_check?(@cur_player)
     puts "Player #{@cur_player}, it's your turn".cyan
     init_move
+    game_loop
   end
 
   def save_game
@@ -45,6 +46,7 @@ class Game
     new_square_loc = $prompt.select('Choose a move:', choices).split(//)
     new_square = @board.find_square(new_square_loc[0], new_square_loc[1].to_i)
     make_move(sel_square, new_square)
+    @cur_player = @cur_player == 'white' ? 'black' : 'white'
   end
 
   def check_sel_square(sel_square)
@@ -91,8 +93,6 @@ class Game
     new_square['content'] = duplicate
     sel_square['content'] = EmptySpace.new(sel_square['content'].pos)
     promote_pawn(new_square)
-    @cur_player = @cur_player == 'white' ? 'black' : 'white'
-    game_loop
   end
 
   def promote_pawn(sq)
