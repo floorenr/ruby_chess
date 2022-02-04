@@ -18,7 +18,7 @@ class Game
   end
 
   def game_loop
-    @board.calc_all_moves
+    @board.calc_all_moves(@cur_player)
     @board.print_board
     puts 'CHECK!'.magenta if @board.in_check?(@cur_player)
     puts "Player #{@cur_player}, it's your turn".cyan

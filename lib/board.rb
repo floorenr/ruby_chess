@@ -3,13 +3,14 @@
 require_relative 'chess_pieces'
 
 class Board
-  attr_accessor :board_array
+  attr_accessor :board_array, :original_board
 
   def initialize
     @board_array = []
     (1..8).each do |i|
       ('a'..'h').each do |j|
         @board_array << { 'column' => j, 'row' => i, 'content' => EmptySpace.new([j, i]) }
+        @original_board = true
       end
     end
     init_board
@@ -27,10 +28,39 @@ class Board
     puts "    #{[*'a'..'h'].join('   ')}\n\n"
   end
 
-  def calc_all_moves
+  def calc_all_moves(cur_player = nil)
     @board_array.each do |square|
       square['content'].calc_moves(self)
     end
+    check_invalid_move(cur_player) if @original_board
+  end
+
+  def check_invalid_move(cur_player)
+    @board_array.each do |square|
+      next if square['content'].class == EmptySpace || square['content'].color != cur_player
+      if square['content'].class == Pawn
+        square['content'].moves_array.keep_if do |move|
+          puts_yourself_check?(move, square['content'].pos) == false
+        end
+        square['content'].capture_moves_array.keep_if do |move|
+          puts_yourself_check?(move, square['content'].pos) == false
+        end
+      else
+        square['content'].moves_array.keep_if do |move|
+          puts_yourself_check?(move, square['content'].pos) == false
+        end
+      end
+    end
+  end
+
+  def puts_yourself_check?(move, pos)
+    duplicate_board = Marshal.load( Marshal.dump(self) )
+    duplicate_board.original_board = false
+    sel_square = duplicate_board.find_square(pos[0], pos[1].to_i)
+    new_square = duplicate_board.find_square(move[0], move[1].to_i)
+    duplicate_board.make_move(sel_square, new_square, sel_square['content'].color)
+    duplicate_board.calc_all_moves
+    duplicate_board.in_check?(new_square['content'].color)
   end
 
   def init_board
