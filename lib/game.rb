@@ -38,25 +38,28 @@ class Game
     return init_move if column_choice == 'j'
     row_choice = $prompt.ask('Pick row (1-8)') { |q| q.in('1-8') }.to_i
     sel_square = @board.find_square(column_choice, row_choice)
+    return init_move if check_sel_square(sel_square) == "run again"
+    choices = sel_square['content'].moves_array.collect(&:join).sort
+    new_square_loc = $prompt.select('Choose a move:', choices).split(//)
+    new_square = @board.find_square(new_square_loc[0], new_square_loc[1].to_i)
+    make_move(sel_square, new_square)
+  end
+
+  def check_sel_square(sel_square)
     unless sel_square['content'].color == @cur_player
       puts 'Square does not hold one of your pieces, try again'.red
-      return init_move
+      return "run again"
     end
     if sel_square['content'].moves_array.empty?
       puts "Your #{sel_square['content'].class} at #{sel_square['content'].pos.join} "\
         "has no possible moves.\nPick another one".red
-      return init_move
+      return "run again"
     end
     puts "Your #{sel_square['content'].class} at #{sel_square['content'].pos.join} "\
         'has the following possible moves:'
     sel_square['content'].moves_array.sort.each { |move| print "#{move.join} ".magenta }
     puts "\n"
-    return init_move unless $prompt.yes?('Continue with this piece? (Press ENTER or "n")', default: "Y")
-
-    choices = sel_square['content'].moves_array.collect(&:join).sort
-    new_square_loc = $prompt.select('Choose a move:', choices).split(//)
-    new_square = @board.find_square(new_square_loc[0], new_square_loc[1].to_i)
-    make_move(sel_square, new_square)
+    return "run again" unless $prompt.yes?('Continue with this piece? (Press ENTER or "n")', default: "Y")
   end
 
   def prompt_column
