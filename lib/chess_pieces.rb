@@ -9,9 +9,15 @@ module ChessPiece
     end
   end
 
-  def puts_yourself_check?(move)
-    # should return true when move puts player check
-    false
+  def puts_yourself_check?(move, current_board)
+    # fix stack level too deep
+    serialized_board = Marshal.dump(current_board)
+    duplicate_board = Marshal.load(serialized_board)
+    sel_square = duplicate_board.find_square(@pos[0], @pos[1].to_i)
+    new_square = duplicate_board.find_square(move[0], move[1].to_i)
+    duplicate_board.make_move(sel_square, new_square, @color)
+    duplicate_board.calc_all_moves
+    duplicate_board.in_check?(@color, move)
   end
 end
 
@@ -41,7 +47,7 @@ class Rook
         break if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       end
     end
-    @moves_array.keep_if {|move| puts_yourself_check?(move) == false }
+    @moves_array.keep_if {|move| puts_yourself_check?(move, current_board) == false }
   end
 end
 
@@ -67,7 +73,7 @@ class Knight
 
       @moves_array << temp_pos.dup
     end
-    @moves_array.keep_if {|move| puts_yourself_check?(move) == false }
+    @moves_array.keep_if {|move| puts_yourself_check?(move, current_board) == false }
   end
 end
 
@@ -97,7 +103,7 @@ class Bishop
         break if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       end
     end
-    @moves_array.keep_if {|move| puts_yourself_check?(move) == false }
+    @moves_array.keep_if {|move| puts_yourself_check?(move, current_board) == false }
   end
 end
 
@@ -127,7 +133,7 @@ class Queen
         break if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
       end
     end
-    @moves_array.keep_if {|move| puts_yourself_check?(move) == false }
+    @moves_array.keep_if {|move| puts_yourself_check?(move, current_board) == false }
   end
 end
 
@@ -153,7 +159,7 @@ class King
 
       @moves_array << temp_pos.dup
     end
-    @moves_array.keep_if {|move| puts_yourself_check?(move) == false }
+    @moves_array.keep_if {|move| puts_yourself_check?(move, current_board) == false }
   end
 end
 
@@ -191,8 +197,8 @@ class Pawn
 
       @moves_array << temp_pos.dup
     end
-    @moves_array.keep_if {|move| puts_yourself_check?(move) == false }
-    @capture_moves_array.keep_if {|move| puts_yourself_check?(move) == false }
+    @moves_array.keep_if {|move| puts_yourself_check?(move, current_board) == false }
+    @capture_moves_array.keep_if {|move| puts_yourself_check?(move, current_board) == false }
   end
 
   def determine_directions
