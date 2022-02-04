@@ -37,24 +37,21 @@ class Board
 
   def check_invalid_move(cur_player)
     @board_array.each do |square|
-      next if square['content'].class == EmptySpace || square['content'].color != cur_player
-      if square['content'].class == Pawn
-        square['content'].moves_array.keep_if do |move|
-          puts_yourself_check?(move, square['content'].pos) == false
-        end
-        square['content'].capture_moves_array.keep_if do |move|
-          puts_yourself_check?(move, square['content'].pos) == false
-        end
-      else
-        square['content'].moves_array.keep_if do |move|
-          puts_yourself_check?(move, square['content'].pos) == false
-        end
+      next if square['content'].instance_of?(EmptySpace) || square['content'].color != cur_player
+
+      square['content'].moves_array.keep_if do |move|
+        puts_yourself_check?(move, square['content'].pos) == false
+      end
+      next unless square['content'].instance_of?(Pawn)
+
+      square['content'].capture_moves_array.keep_if do |move|
+        puts_yourself_check?(move, square['content'].pos) == false
       end
     end
   end
 
   def puts_yourself_check?(move, pos)
-    duplicate_board = Marshal.load( Marshal.dump(self) )
+    duplicate_board = Marshal.load(Marshal.dump(self))
     duplicate_board.original_board = false
     sel_square = duplicate_board.find_square(pos[0], pos[1].to_i)
     new_square = duplicate_board.find_square(move[0], move[1].to_i)
