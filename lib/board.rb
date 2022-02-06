@@ -5,15 +5,17 @@ require_relative 'chess_pieces'
 class Board
   attr_accessor :board_array, :original_board
 
-  def initialize
-    @board_array = []
-    (1..8).each do |i|
-      ('a'..'h').each do |j|
-        @board_array << { 'column' => j, 'row' => i, 'content' => EmptySpace.new([j, i]) }
-        @original_board = true
+  def initialize(board_array = [], original_board = true)
+    @board_array = board_array
+    @original_board = original_board
+    if @board_array.empty?
+      (1..8).each do |i|
+        ('a'..'h').each do |j|
+          @board_array << { 'column' => j, 'row' => i, 'content' => EmptySpace.new([j, i]) }
+        end
       end
+      init_board
     end
-    init_board
   end
 
   def print_board
@@ -36,28 +38,41 @@ class Board
   end
 
   def check_invalid_move(cur_player)
-    @board_array.each do |square|
-      next if square['content'].instance_of?(EmptySpace) || square['content'].color != cur_player
-
-      square['content'].moves_array.keep_if do |move|
-        puts_yourself_check?(move, square['content'].pos) == false
-      end
-      next unless square['content'].instance_of?(Pawn)
-
-      square['content'].capture_moves_array.keep_if do |move|
-        puts_yourself_check?(move, square['content'].pos) == false
+    temp_array = @board_array.dup.map do |square|
+      if square['content'].instance_of?(EmptySpace) || square['content'].color != cur_player
+        square.dup
+      elsif square['content'].instance_of?(Pawn)
+        temp_square = square.dup
+        temp_square['content'].moves_array.keep_if do |move|
+          puts_yourself_check?(move, square['content'].pos) == false
+        end
+        temp_square['content'].capture_moves_array
+        temp_square['content'].capture_moves_array.keep_if do |move|
+          puts_yourself_check?(move, square['content'].pos) == false
+        end
+        temp_square
+      else
+        temp_square = square.dup
+        temp_square['content'].moves_array.keep_if do |move|
+          puts_yourself_check?(move, square['content'].pos) == false
+        end
+        temp_square
       end
     end
+    @board_array = temp_array.dup
   end
 
   def puts_yourself_check?(move, pos)
-    duplicate_board = Marshal.load(Marshal.dump(self))
-    duplicate_board.original_board = false
-    sel_square = duplicate_board.find_square(pos[0], pos[1].to_i)
-    new_square = duplicate_board.find_square(move[0], move[1].to_i)
-    duplicate_board.make_move(sel_square, new_square, sel_square['content'].color)
-    duplicate_board.calc_all_moves
-    duplicate_board.in_check?(new_square['content'].color)
+    copy_board_array = (@board_array.map do |sq|
+      sq['content'] = sq['content'].dup
+      sq = sq.dup
+    end)
+    temp_board = Board.new(copy_board_array, false)
+    sel_square = temp_board.find_square(pos[0], pos[1].to_i)
+    new_square = temp_board.find_square(move[0], move[1].to_i)
+    temp_board.make_move(sel_square, new_square, sel_square['content'].color)
+    temp_board.calc_all_moves
+    temp_board.in_check?(new_square['content'].color)
   end
 
   def init_board

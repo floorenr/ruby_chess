@@ -7,7 +7,7 @@ require_relative 'board'
 # check for checkmate and stalemate
 # introduce castling
 # introduce en passant for Pawn
-# CHECK DOESNT WORK AND CHECK FILTERING DOESN WORK
+# CAPTURE MOVES ARRAY FOR PAWN IS BLANK
 
 class Game
   attr_accessor :board
