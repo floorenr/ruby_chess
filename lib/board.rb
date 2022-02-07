@@ -20,10 +20,11 @@ class Board
 
   def print_board
     rows = @board_array.each_slice(8).to_a
+    puts "\n    #{[*'a'..'h'].join('   ')}\n"
     puts "  ┌#{"#{"\u2500" * 3}┬" * 7}#{"\u2500" * 3}┐ BLACK"
     rows.reverse.each do |row|
       print = row.map { |f| " #{f['content'].graphic} " }.join("\u2502")
-      puts "#{row[0]['row']} │#{print}│"
+      puts "#{row[0]['row']} │#{print}│ #{row[0]['row']}"
       puts "  ├#{"#{"\u2500" * 3}┼" * 7}#{"\u2500" * 3}┤" unless row[0]['row'] == 1
     end
     puts "  └#{"#{"\u2500" * 3}┴" * 7}#{"\u2500" * 3}┘  WHITE"
