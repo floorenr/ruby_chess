@@ -25,6 +25,7 @@ class Game
     puts "Player #{@cur_player}, it's your turn".cyan
     init_move
     return if @quit_game == true
+
     game_loop
   end
 
