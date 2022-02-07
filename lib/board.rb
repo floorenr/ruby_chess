@@ -11,7 +11,7 @@ class Board
     if @board_array.empty?
       (1..8).each do |i|
         ('a'..'h').each do |j|
-          @board_array << { 'column' => j, 'row' => i, 'content' => EmptySpace.new([j, i]) }
+          @board_array << { 'column' => j, 'row' => i, 'content' => EmptySpace.new([j, i.to_s]) }
         end
       end
       init_board
@@ -19,6 +19,7 @@ class Board
   end
 
   def print_board
+    @board_array.each {|sq| p sq}
     rows = @board_array.each_slice(8).to_a
     puts "  ┌#{"#{"\u2500" * 3}┬" * 7}#{"\u2500" * 3}┐ BLACK"
     rows.reverse.each do |row|
