@@ -21,6 +21,9 @@ class Game
   def game_loop
     @board.calc_all_moves(@cur_player)
     @board.print_board
+    checkmate if @board.checkmate?(@cur_player)
+    return if @quit_game == true
+    
     puts 'CHECK!'.magenta if @board.in_check?(@cur_player)
     puts "Player #{@cur_player}, it's your turn".cyan
     init_move
@@ -79,6 +82,15 @@ class Game
   def resign
     winner = @cur_player == 'white' ? 'black' : 'white'
     puts "Player #{@cur_player} resign".red
+    puts "Player #{winner} wins!".green
+    return @quit_game = true if $prompt.no?('Play a new game?', default: 'Y')
+
+    new_game
+  end
+
+  def checkmate
+    winner = @cur_player == 'white' ? 'black' : 'white'
+    puts "Player #{@cur_player} is checkmate".red
     puts "Player #{winner} wins!".green
     return @quit_game = true if $prompt.no?('Play a new game?', default: 'Y')
 
