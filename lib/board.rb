@@ -143,7 +143,6 @@ class Board
                          sq['content'].color == cur_player
                        end
                                   .map { |sq| sq['content'].moves_array }.flatten(1)
-    cur_player_moves
     (in_check?(cur_player) && cur_player_moves.empty?)? true : false
   end
 
