@@ -19,7 +19,6 @@ class Board
   end
 
   def print_board
-    @board_array.each {|sq| p sq}
     rows = @board_array.each_slice(8).to_a
     puts "  ┌#{"#{"\u2500" * 3}┬" * 7}#{"\u2500" * 3}┐ BLACK"
     rows.reverse.each do |row|
@@ -40,6 +39,7 @@ class Board
 
   def check_invalid_move(cur_player)
     temp_array = @board_array.dup.map do |square|
+      square['content'].calc_moves(self)
       if square['content'].instance_of?(EmptySpace) || square['content'].color != cur_player
         square.dup
       elsif square['content'].instance_of?(Pawn)
