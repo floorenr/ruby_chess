@@ -23,7 +23,7 @@ class Game
     @board.print_board
     checkmate if @board.checkmate?(@cur_player)
     return if @quit_game == true
-    
+
     puts 'CHECK!'.magenta if @board.in_check?(@cur_player)
     puts "Player #{@cur_player}, it's your turn".cyan
     init_move
