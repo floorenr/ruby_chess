@@ -176,8 +176,8 @@ class Pawn
     directions.each do |direction|
       temp_pos = @pos.dup
       temp_pos[1] = (temp_pos[1].to_i + direction[1]).to_s
-      next if offboard?(temp_pos) || current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
-      next if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
+      return if offboard?(temp_pos) || current_board.sq_occ_by?(temp_pos[0], temp_pos[1].to_i, @color)
+      return if current_board.sq_occ_by_opp?(temp_pos[0], temp_pos[1].to_i, @color)
 
       @moves_array << temp_pos.dup
     end
