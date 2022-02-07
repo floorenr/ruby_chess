@@ -143,17 +143,16 @@ class Board
     cur_player_moves = @board_array.select do |sq|
                          sq['content'].color == cur_player
                        end
-                                  .map { |sq| sq['content'].moves_array }.flatten(1)
-    (in_check?(cur_player) && cur_player_moves.empty?)? true : false
+                                   .map { |sq| sq['content'].moves_array }.flatten(1)
+    in_check?(cur_player) && cur_player_moves.empty? ? true : false
   end
 
   def stalemate?(cur_player)
     cur_player_moves = @board_array.select do |sq|
       sq['content'].color == cur_player
     end
-               .map { |sq| sq['content'].moves_array }.flatten(1)
-    (in_check?(cur_player) == false && cur_player_moves.empty?)? true : false
-
+                                   .map { |sq| sq['content'].moves_array }.flatten(1)
+    in_check?(cur_player) == false && cur_player_moves.empty? ? true : false
   end
 
   def create_setup
