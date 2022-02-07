@@ -22,6 +22,7 @@ class Game
     @board.calc_all_moves(@cur_player)
     @board.print_board
     checkmate if @board.checkmate?(@cur_player)
+    stalemate if @board.stalemate?(@cur_player)
     return if @quit_game == true
 
     puts 'CHECK!'.magenta if @board.in_check?(@cur_player)
@@ -92,6 +93,14 @@ class Game
     winner = @cur_player == 'white' ? 'black' : 'white'
     puts "Player #{@cur_player} is checkmate".red
     puts "Player #{winner} wins!".green
+    return @quit_game = true if $prompt.no?('Play a new game?', default: 'Y')
+
+    new_game
+  end
+
+  def stalemate
+    puts "Player #{@cur_player} is stalemate".red
+    puts "It's a draw!".green
     return @quit_game = true if $prompt.no?('Play a new game?', default: 'Y')
 
     new_game
