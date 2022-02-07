@@ -5,6 +5,8 @@ require 'tty-prompt'
 require 'yaml'
 require 'colorize'
 
+# Global variable used to make tty-prompt functionality available in all files,
+# but won't be included when saving a game with a serialization of 'game'.
 $prompt = TTY::Prompt.new
 
 def new_game
