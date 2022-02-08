@@ -120,6 +120,10 @@ class Board
     find_square(captured_pos[0], captured_pos[1].to_i)['content'] = EmptySpace.new(captured_pos)
   end
 
+  def make_castling_move(cur_player)
+    # add content
+  end
+
   def check_enpassant(sel_square, new_square, cur_player)
     return unless new_square['content'].class == Pawn
     return unless (sel_square['row'] - new_square['row']).abs == 2
@@ -165,6 +169,18 @@ class Board
     when 'white'
       find_square(column, row)['content'].color == 'black'
     end
+  end
+
+  def castling_available?(cur_player)
+    conditions = []
+# Castling is performed on the kingside or queenside with a rook on the same rank.
+# Neither the king nor the chosen rook has previously moved.
+
+# There are no pieces between the king and the chosen rook.
+# The king is not currently in check.
+# The king does not pass through a square that is attacked by an enemy piece.
+# The king does not end up in check. (True of any legal move.)
+    conditions.all?
   end
 
   def in_check?(player)
