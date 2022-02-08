@@ -46,7 +46,15 @@ class Game
   end
 
   def init_computer_move
-    
+    random_movable_sq = @board.board_array.select do |sq|
+        sq['content'].color == @cur_player && !(sq['content'].moves_array.empty?)
+                  end
+                .sample
+    move = random_movable_sq['content'].moves_array.sample
+    puts "Computer moves #{random_movable_sq['content'].class} from #{random_movable_sq['content'].pos.join} to #{move.join}"
+    new_square = @board.find_square(move[0], move[1].to_i)
+    @board.make_move(random_movable_sq, new_square, @cur_player)
+    @cur_player = @cur_player == 'white' ? 'black' : 'white'
   end
 
   def init_move
