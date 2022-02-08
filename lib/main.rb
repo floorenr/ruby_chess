@@ -11,7 +11,7 @@ $prompt = TTY::Prompt.new
 
 def new_game
   game = Game.new
-  game.new_game
+  game.init_game
 end
 
 def saved_game
