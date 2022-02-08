@@ -31,7 +31,7 @@ class Game
 
     puts 'CHECK!'.magenta if @board.in_check?(@cur_player)
     puts "Player #{@cur_player}, it's your turn".cyan
-    @game_type == 'Player vs Computer' && @cur_player == @computer_player? init_computer_move : init_move
+    @game_type == 'Player vs Computer' && @cur_player == @computer_player? computer_move : player_move
 
     return if @quit_game == true
 
@@ -42,10 +42,10 @@ class Game
     save_name = $prompt.ask('Choose a name for saved game')
     puts 'Game saved'.light_cyan
     File.open("./saved_games/#{save_name}.yml", 'w') { |f| YAML.dump(self, f) }
-    init_move
+    player_move
   end
 
-  def init_computer_move
+  def computer_move
     random_movable_sq = @board.board_array.select do |sq|
         sq['content'].color == @cur_player && !(sq['content'].moves_array.empty?)
                   end
@@ -57,15 +57,15 @@ class Game
     @cur_player = @cur_player == 'white' ? 'black' : 'white'
   end
 
-  def init_move
+  def player_move
     column_choice = prompt_column
     return save_game if column_choice == 'i'
     return resign if column_choice == 'j' && $prompt.yes?('Are you sure you wish to resign?')
-    return init_move if column_choice == 'j'
+    return player_move if column_choice == 'j'
 
     row_choice = $prompt.ask('Pick row (1-8)') { |q| q.in('1-8') }.to_i
     sel_square = @board.find_square(column_choice, row_choice)
-    return init_move if check_sel_square(sel_square) == 'run again'
+    return player_move if check_sel_square(sel_square) == 'run again'
 
     choices = sel_square['content'].moves_array.collect(&:join).sort
     new_square_loc = $prompt.select('Choose a move:', choices).split(//)
