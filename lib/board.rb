@@ -3,7 +3,8 @@
 require_relative 'chess_pieces'
 
 class Board
-  attr_accessor :board_array, :original_board
+  attr_accessor :board_array, :original_board, :enpassant_captured_pos,
+    :enpassant_capturing_pos, :en_passant_move
 
   def initialize(board_array = [], original_board = true)
     @board_array = board_array

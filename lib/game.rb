@@ -79,7 +79,13 @@ class Game
       @board.make_enpassant_move(sel_square, new_square, @cur_player)
     end
     @cur_player = opponent
-    # cancel enpassant
+    reset_enpassant
+  end
+
+  def reset_enpassant
+    @board.enpassant_captured_pos = nil
+    @board.enpassant_capturing_pos = nil
+    @board.enpassant_move = nil
   end
 
   def check_sel_square(sel_square)
