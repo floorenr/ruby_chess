@@ -111,8 +111,13 @@ class Board
     check_enpassant(sel_square, new_square, cur_player) if @original_board
   end
 
-  def make_enpassant_move(sel_square, new_square, cur_player)
-    # add content
+  def make_enpassant_move(sel_square, new_square, captured_pos)
+    puts "making enpassant move"
+    duplicate = sel_square['content'].dup
+    duplicate.pos = new_square['content'].pos
+    new_square['content'] = duplicate
+    sel_square['content'] = EmptySpace.new(sel_square['content'].pos)
+    find_square(captured_pos[0], captured_pos[1].to_i)['content'] = EmptySpace.new(captured_pos)
   end
 
   def check_enpassant(sel_square, new_square, cur_player)
