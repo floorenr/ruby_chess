@@ -66,6 +66,7 @@ class Game
   end
 
   def player_move
+    return if castling_move == false
     enpassant_captured_pos = @board.enpassant_captured_pos
     column_choice = prompt_column
     return save_game if column_choice == 'i'
@@ -88,6 +89,15 @@ class Game
     end
     @cur_player = opponent
   end
+
+  def castling_move
+    return false unless @board.castling_available?
+    return false if $prompt.no?('Castling available! Play it?', default: 'Y')
+    @board.make_castling_move(@cur_player)
+    reset_enpassant
+    @cur_player = opponent
+  end
+
 
   def reset_enpassant
     @board.enpassant_captured_pos = nil
