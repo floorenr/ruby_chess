@@ -54,9 +54,9 @@ class Game
     puts "Computer moves #{random_movable_sq['content'].class} from " \
       "#{random_movable_sq['content'].pos.join} to #{move.join}"
     new_square = @board.find_square(move[0], move[1].to_i)
+    reset_enpassant
     @board.make_move(random_movable_sq, new_square, @cur_player)
     @cur_player = opponent
-    # cancel enpassant
   end
 
   def player_move
@@ -72,6 +72,7 @@ class Game
     choices = sel_square['content'].moves_array.collect(&:join).sort
     new_square_loc = $prompt.select('Choose a move:', choices).split(//)
     new_square = @board.find_square(new_square_loc[0], new_square_loc[1].to_i)
+    reset_enpassant
     case new_square_loc.length
     when 2
       @board.make_move(sel_square, new_square, @cur_player)
@@ -79,7 +80,6 @@ class Game
       @board.make_enpassant_move(sel_square, new_square, @cur_player)
     end
     @cur_player = opponent
-    reset_enpassant
   end
 
   def reset_enpassant

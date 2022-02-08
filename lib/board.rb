@@ -4,7 +4,7 @@ require_relative 'chess_pieces'
 
 class Board
   attr_accessor :board_array, :original_board, :enpassant_captured_pos,
-    :enpassant_capturing_pos, :en_passant_move
+    :enpassant_capturing_pos, :enpassant_move
 
   def initialize(board_array = [], original_board = true)
     @board_array = board_array
@@ -40,7 +40,13 @@ class Board
       square['content'].calc_moves(self)
     end
     check_invalid_move(cur_player) if @original_board
-    # add en_passant_move to relevant piece(s)
+    add_enpassant_move unless @enpassant_move.nil?
+  end
+
+  def add_enpassant_move
+    @enpassant_capturing_pos.each do |pos|
+      (find_square(pos[0], pos[1].to_i))['content'].moves_array.push(@enpassant_move)
+    end
   end
 
   def check_invalid_move(cur_player)
