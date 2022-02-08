@@ -181,15 +181,13 @@ class Board
   end
 
   def castling_available?(cur_player)
-    conditions = []
     # Neither the king nor the chosen rook has previously moved.
     unmoved_classes = find_unmoved_pieces(cur_player).map {|piece| piece.class}
-    conditions << unmoved_king_and_rook = unmoved_classes.include?(King) && unmoved_classes.include?(Rook)
+    return false if unmoved_king_and_rook = unmoved_classes.include?(King) && unmoved_classes.include?(Rook)
     # There are no pieces between the king and the chosen rook.
     # The king is not currently in check.
     # The king does not pass through a square that is attacked by an enemy piece.
     # The king does not end up in check. (True of any legal move.)
-    conditions.all?
     false
   end
 
