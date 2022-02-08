@@ -51,7 +51,8 @@ class Game
     end
                               .sample
     move = random_movable_sq['content'].moves_array.sample
-    puts "Computer moves #{random_movable_sq['content'].class} from #{random_movable_sq['content'].pos.join} to #{move.join}"
+    puts "Computer moves #{random_movable_sq['content'].class} from " \
+      "#{random_movable_sq['content'].pos.join} to #{move.join}"
     new_square = @board.find_square(move[0], move[1].to_i)
     @board.make_move(random_movable_sq, new_square, @cur_player)
     @cur_player = @cur_player == 'white' ? 'black' : 'white'
