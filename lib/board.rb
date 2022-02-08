@@ -106,7 +106,7 @@ class Board
     duplicate = sel_square['content'].dup
     duplicate.pos = new_square['content'].pos
     new_square['content'] = duplicate
-    new_square['content'].moved = true if new_square['content'].instance_variable_defined?(:moved)
+    new_square['content'].has_moved = true if new_square['content'].instance_variable_defined?(:@has_moved)
     sel_square['content'] = EmptySpace.new(sel_square['content'].pos)
     promote_pawn(new_square, cur_player)
     check_enpassant(sel_square, new_square, cur_player) if @original_board
@@ -159,6 +159,14 @@ class Board
     @board_array.select { |sq| (sq['column'] == column && sq['row'] == row) }[0]
   end
 
+  def find_unmoved_pieces(cur_player)
+    @board_array.select do |sq|
+      sq['content'].instance_variable_defined?(:@has_moved) &&
+        sq['content'].has_moved == false && sq['content'].color == cur_player
+    end
+        .map {|sq| sq['content']}
+  end
+
   def sq_occ_by?(column, row, color)
     find_square(column, row)['content'].color == color
   end
@@ -174,14 +182,15 @@ class Board
 
   def castling_available?(cur_player)
     conditions = []
-# Castling is performed on the kingside or queenside with a rook on the same rank.
-# Neither the king nor the chosen rook has previously moved.
-
-# There are no pieces between the king and the chosen rook.
-# The king is not currently in check.
-# The king does not pass through a square that is attacked by an enemy piece.
-# The king does not end up in check. (True of any legal move.)
+    # Neither the king nor the chosen rook has previously moved.
+    unmoved_classes = find_unmoved_pieces(cur_player).map {|piece| piece.class}
+    conditions << unmoved_king_and_rook = unmoved_classes.include?(King) && unmoved_classes.include?(Rook)
+    # There are no pieces between the king and the chosen rook.
+    # The king is not currently in check.
+    # The king does not pass through a square that is attacked by an enemy piece.
+    # The king does not end up in check. (True of any legal move.)
     conditions.all?
+    false
   end
 
   def in_check?(player)
