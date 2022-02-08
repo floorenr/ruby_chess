@@ -7,7 +7,7 @@ Click on the green 'run' button to start<br /><br />
 Game incorporates a very simple computer opponent, picking a random move,<br />
 without using any tactics.
 
-TODO:
-introduce castling
-introduce en passant for Pawn
+TODO:<br />
+introduce castling<br />
+introduce en passant for Pawn<br />
 clean up code and add comments when needed
