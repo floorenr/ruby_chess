@@ -19,6 +19,7 @@ class Rook
     @graphic = @color == 'black' ? "\u2656".magenta : "\u2656"
     @pos = pos.split(//)
     @moves_array = []
+    @moved = false
   end
 
   def calc_moves(current_board)
@@ -131,6 +132,7 @@ class King
     @graphic = @color == 'black' ? "\u2654".magenta : "\u2654"
     @pos = pos.split(//)
     @moves_array = []
+    @moved = false
   end
 
   def calc_moves(current_board)
