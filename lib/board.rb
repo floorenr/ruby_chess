@@ -8,8 +8,8 @@ class Board
   def initialize(board_array = [], original_board = true)
     @board_array = board_array
     @original_board = original_board
-    @enpassant_captured = nil
-    @enpassant_capturing = nil
+    @enpassant_captured_pos = nil
+    @enpassant_capturing_pos = nil
     @enpassant_move = nil
     return unless @board_array.empty?
 
@@ -39,6 +39,7 @@ class Board
       square['content'].calc_moves(self)
     end
     check_invalid_move(cur_player) if @original_board
+    # add en_passant_move to relevant piece(s)
   end
 
   def check_invalid_move(cur_player)
@@ -103,14 +104,18 @@ class Board
     check_enpassant(sel_square, new_square, cur_player) if @original_board
   end
 
+  def make_enpassant_move(sel_square, new_square, cur_player)
+    # add content
+  end
+
   def check_enpassant(sel_square, new_square, cur_player)
     return unless new_square['content'].class == Pawn
     return unless (sel_square['row'] - new_square['row']).abs == 2
-    pawns = adjacent_opp_pawns(new_square['column'], new_square['row'], cur_player)
-    return if pawns.empty?
-    @enpassant_captured = new_square
-    @enpassant_capturing = pawns
-    @enpassant_move = [new_square['column'], ((sel_square['row'] + new_square['row']) / 2).to_s, 'ep']
+    pawn_positions = adjacent_opp_pawns(new_square['column'], new_square['row'], cur_player)
+    return if pawn_positions.empty?
+    @enpassant_captured_pos = new_square['content'].pos
+    @enpassant_capturing_pos = pawn_positions
+    @enpassant_move = [new_square['column'], ((sel_square['row'] + new_square['row']) / 2).to_s, 'en passant']
 
   end
 
@@ -118,8 +123,8 @@ class Board
     columns = []
     [-1, 1].each {|direction| columns << (column.ord + direction).chr}
     columns.select! {|column| column =~ /[abcdefgh]/ }
-    pawns = (columns.map do |column|
-              sq_occ_by_opp?(column, row, cur_player)? find_square(column, row) : nil
+    pawn_positions = (columns.map do |column|
+              sq_occ_by_opp?(column, row, cur_player)? find_square(column, row)['content'].pos : nil
             end)
               .compact
   end
