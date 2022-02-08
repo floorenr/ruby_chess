@@ -106,6 +106,7 @@ class Board
     duplicate = sel_square['content'].dup
     duplicate.pos = new_square['content'].pos
     new_square['content'] = duplicate
+    new_square['content'].moved = true if new_square['content'].instance_variable_defined?(:moved)
     sel_square['content'] = EmptySpace.new(sel_square['content'].pos)
     promote_pawn(new_square, cur_player)
     check_enpassant(sel_square, new_square, cur_player) if @original_board
