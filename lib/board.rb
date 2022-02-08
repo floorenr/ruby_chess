@@ -110,7 +110,7 @@ class Board
     return if pawns.empty?
     @enpassant_captured = new_square
     @enpassant_capturing = pawns
-    @enpassant_move = [new_square['column'], ((sel_square['row'] + new_square['row']) / 2).to_s]
+    @enpassant_move = [new_square['column'], ((sel_square['row'] + new_square['row']) / 2).to_s, 'ep']
 
   end
 
