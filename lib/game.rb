@@ -15,7 +15,7 @@ class Game
   def init_game
     @game_type = $prompt.select('Choose game type?', ['Player vs Player', 'Player vs Computer'])
     if @game_type == 'Player vs Computer'
-      @computer_player = ['white', 'black'].sample
+      @computer_player = %w[white black].sample
       puts "Computer player is #{@computer_player}".cyan
     end
     puts '(black is colored magenta for readability)'
@@ -31,7 +31,7 @@ class Game
 
     puts 'CHECK!'.magenta if @board.in_check?(@cur_player)
     puts "Player #{@cur_player}, it's your turn".cyan
-    @game_type == 'Player vs Computer' && @cur_player == @computer_player? computer_move : player_move
+    @game_type == 'Player vs Computer' && @cur_player == @computer_player ? computer_move : player_move
 
     return if @quit_game == true
 
@@ -47,9 +47,9 @@ class Game
 
   def computer_move
     random_movable_sq = @board.board_array.select do |sq|
-        sq['content'].color == @cur_player && !(sq['content'].moves_array.empty?)
-                  end
-                .sample
+      sq['content'].color == @cur_player && !sq['content'].moves_array.empty?
+    end
+                              .sample
     move = random_movable_sq['content'].moves_array.sample
     puts "Computer moves #{random_movable_sq['content'].class} from #{random_movable_sq['content'].pos.join} to #{move.join}"
     new_square = @board.find_square(move[0], move[1].to_i)

@@ -8,13 +8,12 @@ class Board
   def initialize(board_array = [], original_board = true)
     @board_array = board_array
     @original_board = original_board
-    if @board_array.empty?
-      (1..8).each do |i|
-        ('a'..'h').each do |j|
-          @board_array << { 'column' => j, 'row' => i, 'content' => EmptySpace.new([j, i.to_s]) }
-        end
+    return unless @board_array.empty?
+    (1..8).each do |i|
+      ('a'..'h').each do |j|
+        @board_array << { 'column' => j, 'row' => i, 'content' => EmptySpace.new([j, i.to_s]) }
       end
-      init_board
+    init_board
     end
   end
 
@@ -67,7 +66,7 @@ class Board
   def puts_yourself_check?(move, pos)
     copy_board_array = (@board_array.map do |sq|
       sq['content'] = sq['content'].dup
-      sq = sq.dup
+      sq.dup
     end)
     temp_board = Board.new(copy_board_array, false)
     sel_square = temp_board.find_square(pos[0], pos[1].to_i)
