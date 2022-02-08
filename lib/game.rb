@@ -75,7 +75,7 @@ class Game
     when 2
       @board.make_move(sel_square, new_square, @cur_player)
     when 3 # only en passant moves have three items in array
-      @board.make_enpasant_move(sel_square, new_square, @cur_player)
+      @board.make_enpassant_move(sel_square, new_square, @cur_player)
     end
     @cur_player = opponent
   end
