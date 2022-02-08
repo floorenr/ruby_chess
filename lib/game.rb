@@ -46,6 +46,7 @@ class Game
   end
 
   def computer_move
+    enpassant_captured_pos = @board.enpassant_captured_pos
     random_movable_sq = @board.board_array.select do |sq|
       sq['content'].color == @cur_player && !sq['content'].moves_array.empty?
     end
@@ -58,13 +59,14 @@ class Game
     case new_square['content'].pos.length
     when 2
       @board.make_move(random_movable_sq, new_square, @cur_player)
-    when 3 # only en passant moves have three items in array
-      @board.make_enpassant_move(random_movable_sq, new_square, @cur_player)
+    when 12 # only en passant moves have three items in array
+      @board.make_enpassant_move(random_movable_sq, new_square, enpassant_captured_pos)
     end
     @cur_player = opponent
   end
 
   def player_move
+    enpassant_captured_pos = @board.enpassant_captured_pos
     column_choice = prompt_column
     return save_game if column_choice == 'i'
     return resign if column_choice == 'j' && $prompt.yes?('Are you sure you wish to resign?')
@@ -81,8 +83,8 @@ class Game
     case new_square_loc.length
     when 2
       @board.make_move(sel_square, new_square, @cur_player)
-    when 3 # only en passant moves have three items in array
-      @board.make_enpassant_move(sel_square, new_square, @cur_player)
+    when 12 # only en passant moves have 12 items in array
+      @board.make_enpassant_move(sel_square, new_square, enpassant_captured_pos)
     end
     @cur_player = opponent
   end
