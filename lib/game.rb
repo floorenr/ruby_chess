@@ -88,7 +88,7 @@ class Game
   end
 
   def castling_move
-    return false unless @board.castling_available?
+    return false unless @board.castling_available?(@cur_player)
     return false if $prompt.no?('Castling available! Play it?', default: 'Y')
     @board.make_castling_move(@cur_player)
     reset_enpassant
