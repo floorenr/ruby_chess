@@ -12,6 +12,13 @@ class Game
     @quit_game = false
   end
 
+  def init_game
+    game_type = $prompt.select('Choose game type?', ['Player vs Player', 'Player vs Computer'])
+    @game_type = game_type
+    puts '(black is colored magenta for readability)'
+    game_loop
+  end
+
   def game_loop
     @board.calc_all_moves(@cur_player)
     @board.print_board
@@ -103,6 +110,6 @@ class Game
   def new_game
     puts 'New game!'
     new_game = Game.new
-    new_game.game_loop
+    new_game.init_game
   end
 end
