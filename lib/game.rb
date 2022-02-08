@@ -55,7 +55,7 @@ class Game
       "#{random_movable_sq['content'].pos.join} to #{move.join}"
     new_square = @board.find_square(move[0], move[1].to_i)
     @board.make_move(random_movable_sq, new_square, @cur_player)
-    @cur_player = @cur_player == 'white' ? 'black' : 'white'
+    @cur_player = opponent
   end
 
   def player_move
@@ -72,7 +72,7 @@ class Game
     new_square_loc = $prompt.select('Choose a move:', choices).split(//)
     new_square = @board.find_square(new_square_loc[0], new_square_loc[1].to_i)
     @board.make_move(sel_square, new_square, @cur_player)
-    @cur_player = @cur_player == 'white' ? 'black' : 'white'
+    @cur_player = opponent
   end
 
   def check_sel_square(sel_square)
@@ -99,19 +99,22 @@ class Game
   end
 
   def resign
-    winner = @cur_player == 'white' ? 'black' : 'white'
     puts "Player #{@cur_player} resign".red
-    puts "Player #{winner} wins!".green
+    puts "Player #{opponent} wins!".green
     @quit_game = true
     return if $prompt.no?('Play a new game?', default: 'Y')
 
     new_game
   end
 
+  def opponent
+    @cur_player == 'white' ? 'black' : 'white'
+  end
+
+
   def checkmate
-    winner = @cur_player == 'white' ? 'black' : 'white'
     puts "Player #{@cur_player} is checkmate".red
-    puts "Player #{winner} wins!".green
+    puts "Player #{opponent} wins!".green
     @quit_game = true
     return if $prompt.no?('Play a new game?', default: 'Y')
 
