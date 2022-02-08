@@ -12,14 +12,14 @@ end
 
 class Rook
   include ChessPiece
-  attr_accessor :graphic, :color, :pos, :moves_array, :moved
+  attr_accessor :graphic, :color, :pos, :moves_array, :has_moved
 
   def initialize(pos, color = 'black')
     @color = color
     @graphic = @color == 'black' ? "\u2656".magenta : "\u2656"
     @pos = pos.split(//)
     @moves_array = []
-    @moved = false
+    @has_moved = false
   end
 
   def calc_moves(current_board)
@@ -125,14 +125,14 @@ end
 
 class King
   include ChessPiece
-  attr_accessor :graphic, :color, :pos, :moves_array, :moved
+  attr_accessor :graphic, :color, :pos, :moves_array, :has_moved
 
   def initialize(pos, color = 'black')
     @color = color
     @graphic = @color == 'black' ? "\u2654".magenta : "\u2654"
     @pos = pos.split(//)
     @moves_array = []
-    @moved = false
+    @has_moved = false
   end
 
   def calc_moves(current_board)
