@@ -2,11 +2,6 @@
 
 require_relative 'board'
 
-# TODO:
-# introduce castling
-# introduce en passant for Pawn
-# clean up code and add comments when needed
-
 class Game
   attr_accessor :board
 
