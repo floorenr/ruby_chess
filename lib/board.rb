@@ -187,6 +187,7 @@ class Board
     # There are no pieces between the king and the chosen rook.
     return false if castlable_rooks(cur_player).empty?
     # The king is not currently in check.
+    return false if in_check?(@cur_player)
     # The king does not pass through a square that is attacked by an enemy piece.
     # The king does not end up in check. (True of any legal move.)
     false
@@ -210,7 +211,6 @@ class Board
                     find_square(column, rook.pos[1].to_i)['content']
                    end
     !pieces_array.all? {|piece| piece.is_a?(EmptySpace)}
-
   end
 
   def in_check?(player)
