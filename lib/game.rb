@@ -31,7 +31,8 @@ class Game
 
     puts 'CHECK!'.magenta if @board.in_check?(@cur_player)
     puts "Player #{@cur_player}, it's your turn".cyan
-    init_move
+    @game_type == 'Player vs Computer' && @cur_player == @computer_player? init_computer_move : init_move
+
     return if @quit_game == true
 
     game_loop
@@ -42,6 +43,10 @@ class Game
     puts 'Game saved'.light_cyan
     File.open("./saved_games/#{save_name}.yml", 'w') { |f| YAML.dump(self, f) }
     init_move
+  end
+
+  def init_computer_move
+    
   end
 
   def init_move
