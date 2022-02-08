@@ -186,11 +186,8 @@ class Board
     return false unless unmoved_king_and_rook = unmoved_classes.include?(King) && unmoved_classes.include?(Rook)
     # There are no pieces between the king and the chosen rook.
     return false if castlable_rooks(cur_player).empty?
-    # The king is not currently in check.
-    return false if in_check?(@cur_player)
-    # The king does not pass through a square that is attacked by an enemy piece.
-    # The king does not end up in check. (True of any legal move.)
-    false
+    # The king is not in check, won't end up in check or pass through attacked squares
+      # go through range of movement and see if any of them are in check
   end
 
   def castlable_rooks(cur_player)
@@ -202,15 +199,20 @@ class Board
   end
 
   def pieces_inbetween?(rook, king)
-    range = [rook.pos[0], king.pos[0]].sort
-    for i in (range[0].ord + 1)..(range[1].ord) - 1
-      range << i.chr
-    end
-    range_inbetween = range.sort[1..-2]
+    range = range_of_movement(rook, king)
+    range_inbetween = range[1..-2]
     pieces_array = range_inbetween.map do |column|
                     find_square(column, rook.pos[1].to_i)['content']
                    end
     !pieces_array.all? {|piece| piece.is_a?(EmptySpace)}
+  end
+
+  def range_of_movement(rook, king)
+    range = [rook.pos[0], king.pos[0]].sort
+    for i in (range[0].ord + 1)..(range[1].ord) - 1
+      range << i.chr
+    end
+    p range.sort
   end
 
   def in_check?(player)
