@@ -12,7 +12,7 @@ end
 
 class Rook
   include ChessPiece
-  attr_accessor :graphic, :color, :pos, :moves_array
+  attr_accessor :graphic, :color, :pos, :moves_array, :moved
 
   def initialize(pos, color = 'black')
     @color = color
@@ -125,7 +125,7 @@ end
 
 class King
   include ChessPiece
-  attr_accessor :graphic, :color, :pos, :moves_array
+  attr_accessor :graphic, :color, :pos, :moves_array, :moved
 
   def initialize(pos, color = 'black')
     @color = color
