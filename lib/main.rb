@@ -10,10 +10,8 @@ require 'colorize'
 $prompt = TTY::Prompt.new
 
 def new_game
-  game_type = $prompt.select('Choose game type?', ['Player vs Player', 'Player vs Computer'])
-  puts '(black is colored magenta for readability)'
-  game = Game.new(game_type)
-  game.game_loop
+  game = Game.new
+  game.new_game
 end
 
 def saved_game
