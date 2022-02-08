@@ -13,8 +13,11 @@ class Game
   end
 
   def init_game
-    game_type = $prompt.select('Choose game type?', ['Player vs Player', 'Player vs Computer'])
-    @game_type = game_type
+    @game_type = $prompt.select('Choose game type?', ['Player vs Player', 'Player vs Computer'])
+    if @game_type == 'Player vs Computer'
+      @computer_player = ['white', 'black'].sample
+      puts "Computer player is #{@computer_player}".cyan
+    end
     puts '(black is colored magenta for readability)'
     game_loop
   end
