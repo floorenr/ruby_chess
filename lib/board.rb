@@ -8,6 +8,9 @@ class Board
   def initialize(board_array = [], original_board = true)
     @board_array = board_array
     @original_board = original_board
+    @enpassant_captured = nil
+    @enpassant_capturing = nil
+    @enpassant_move = nil
     return unless @board_array.empty?
 
     (1..8).each do |i|
@@ -97,6 +100,28 @@ class Board
     new_square['content'] = duplicate
     sel_square['content'] = EmptySpace.new(sel_square['content'].pos)
     promote_pawn(new_square, cur_player)
+    check_enpassant(sel_square, new_square, cur_player) if @original_board
+  end
+
+  def check_enpassant(sel_square, new_square, cur_player)
+    return unless new_square['content'].class == Pawn
+    return unless (sel_square['row'] - new_square['row']).abs == 2
+    pawns = adjacent_opp_pawns(new_square['column'], new_square['row'], cur_player)
+    return if pawns.empty?
+    @enpassant_captured = new_square
+    @enpassant_capturing = pawns
+    @enpassant_move = [new_square['column'], ((sel_square['row'] + new_square['row']) / 2).to_s]
+
+  end
+
+  def adjacent_opp_pawns(column, row, cur_player)
+    columns = []
+    [-1, 1].each {|direction| columns << (column.ord + direction).chr}
+    columns.select! {|column| column =~ /[abcdefgh]/ }
+    pawns = (columns.map do |column|
+              sq_occ_by_opp?(column, row, cur_player)? find_square(column, row) : nil
+            end)
+              .compact
   end
 
   def promote_pawn(sq, cur_player)
