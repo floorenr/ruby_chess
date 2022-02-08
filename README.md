@@ -8,4 +8,3 @@ TODO:
 introduce castling
 introduce en passant for Pawn
 clean up code and add comments when needed
-build AI computer play
