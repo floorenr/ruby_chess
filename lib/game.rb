@@ -55,7 +55,12 @@ class Game
       "#{random_movable_sq['content'].pos.join} to #{move.join}"
     new_square = @board.find_square(move[0], move[1].to_i)
     reset_enpassant
-    @board.make_move(random_movable_sq, new_square, @cur_player)
+    case new_square['content'].pos.length
+    when 2
+      @board.make_move(random_movable_sq, new_square, @cur_player)
+    when 3 # only en passant moves have three items in array
+      @board.make_enpassant_move(random_movable_sq, new_square, @cur_player)
+    end
     @cur_player = opponent
   end
 
