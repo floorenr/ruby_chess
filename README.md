@@ -9,5 +9,4 @@ without using any tactics.
 
 TODO:<br />
 introduce castling<br />
-introduce en passant for Pawn<br />
 clean up code and add comments when needed
