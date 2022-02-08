@@ -85,7 +85,8 @@ class Game
     winner = @cur_player == 'white' ? 'black' : 'white'
     puts "Player #{@cur_player} resign".red
     puts "Player #{winner} wins!".green
-    return @quit_game = true if $prompt.no?('Play a new game?', default: 'Y')
+    @quit_game = true
+    return if $prompt.no?('Play a new game?', default: 'Y')
 
     new_game
   end
@@ -94,7 +95,8 @@ class Game
     winner = @cur_player == 'white' ? 'black' : 'white'
     puts "Player #{@cur_player} is checkmate".red
     puts "Player #{winner} wins!".green
-    return @quit_game = true if $prompt.no?('Play a new game?', default: 'Y')
+    @quit_game = true
+    return if $prompt.no?('Play a new game?', default: 'Y')
 
     new_game
   end
@@ -102,7 +104,8 @@ class Game
   def stalemate
     puts "Player #{@cur_player} is stalemate".red
     puts "It's a draw!".green
-    return @quit_game = true if $prompt.no?('Play a new game?', default: 'Y')
+    @quit_game = true
+    return if $prompt.no?('Play a new game?', default: 'Y')
 
     new_game
   end
