@@ -59,7 +59,7 @@ class Game
   end
 
   def player_move
-    return if castling_move == false
+    return unless castling_move == false
     enpassant_captured_pos = @board.enpassant_captured_pos
     column_choice = prompt_column
     return save_game if column_choice == 'i'
