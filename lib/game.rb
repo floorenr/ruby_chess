@@ -56,6 +56,7 @@ class Game
     new_square = @board.find_square(move[0], move[1].to_i)
     @board.make_move(random_movable_sq, new_square, @cur_player)
     @cur_player = opponent
+    # cancel enpassant
   end
 
   def player_move
@@ -78,6 +79,7 @@ class Game
       @board.make_enpassant_move(sel_square, new_square, @cur_player)
     end
     @cur_player = opponent
+    # cancel enpassant
   end
 
   def check_sel_square(sel_square)
