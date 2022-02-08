@@ -9,12 +9,13 @@ class Board
     @board_array = board_array
     @original_board = original_board
     return unless @board_array.empty?
+
     (1..8).each do |i|
       ('a'..'h').each do |j|
         @board_array << { 'column' => j, 'row' => i, 'content' => EmptySpace.new([j, i.to_s]) }
       end
-    init_board
     end
+    init_board
   end
 
   def print_board
@@ -102,9 +103,9 @@ class Board
     if cur_player == 'white' && sq['content'].is_a?(Pawn) && sq['row'] == 8
       sq['content'] = Queen.new("#{sq['column']}#{sq['row']}", 'white')
     end
-    if cur_player == 'black' && sq['content'].is_a?(Pawn) && sq['row'] == 1
-      sq['content'] = Queen.new("#{sq['column']}#{sq['row']}", 'black')
-    end
+    return unless cur_player == 'black' && sq['content'].is_a?(Pawn) && sq['row'] == 1
+
+    sq['content'] = Queen.new("#{sq['column']}#{sq['row']}", 'black')
   end
 
   def find_square(column, row)
