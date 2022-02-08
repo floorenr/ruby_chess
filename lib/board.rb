@@ -188,6 +188,7 @@ class Board
     return false if castlable_rooks(cur_player).empty?
     # The king is not in check, won't end up in check or pass through attacked squares
       # go through range of movement and see if any of them are in check
+    true
   end
 
   def castlable_rooks(cur_player)
