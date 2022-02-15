@@ -121,9 +121,19 @@ class Board
     find_square(captured_pos[0], captured_pos[1].to_i)['content'] = EmptySpace.new(captured_pos)
   end
 
-  def make_castling_move(cur_player, castling_rooks)
-    # add content
-    # @rook_choice = $prompt.select('Choose rook', [#{xxx}, #{xxx}])
+  def make_castling_move(player, castling_rooks)
+    king_sq = @board_array.select { |sq| (sq['content'].is_a?(King) && sq['content'].color == player) }[0]
+    if castling_rooks.length == 1
+      rook_sq = find_square(castling_rooks[0].pos[0], castling_rooks[0].pos[1].to_i)
+    else
+      choices = [castling_rooks[0].pos.join, castling_rooks[1].pos.join]
+      rook_pos = $prompt.select('Choose rook', choices)
+      rook_sq = find_square(rook_pos[0], rook_pos[1].to_i)
+    end
+    new_rook_square = rook_sq['column'] == 'a' ? find_square('d', rook_sq['row']) : find_square('f', rook_sq['row'])
+    new_king_square = rook_sq['column'] == 'a' ? find_square('c', rook_sq['row']) : find_square('g', rook_sq['row'])
+    make_move(rook_sq, new_rook_square, player)
+    make_move(king_sq, new_king_square, player)
   end
 
   def check_enpassant(sel_square, new_square, cur_player)
