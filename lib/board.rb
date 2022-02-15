@@ -209,9 +209,13 @@ class Board
     !pieces_array.all? {|piece| piece.is_a?(EmptySpace)}
   end
 
-  def any_king_pos_check?(rook, unmoved_king)
+  def any_king_pos_check?(rook, king)
       range = range_of_movement(rook, king)
       # go through range of movement and see if any of them are in check
+      range.map! do |column|
+        opp_player_capture_moves(rook.color).include?([column, rook.pos[1]])
+      end
+      range.any?
   end
 
   def range_of_movement(rook, king)
