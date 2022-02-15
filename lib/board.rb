@@ -186,8 +186,7 @@ class Board
     unmoved_classes = find_unmoved_pieces(cur_player).map {|piece| piece.class}
     return false unless unmoved_classes.include?(King) && unmoved_classes.include?(Rook)
     castlable_rooks = castlable_rooks(cur_player)
-    return false if castlable_rooks.empty?
-    castlable_rooks
+    castlable_rooks.empty? ? false : castlable_rooks
   end
 
   def castlable_rooks(cur_player)
@@ -195,10 +194,10 @@ class Board
     unmoved_king = find_unmoved_pieces(cur_player).select {|piece| piece.class == King}[0]
     unmoved_rooks = find_unmoved_pieces(cur_player).select {|piece| piece.class == Rook}
     unmoved_rooks.select do |rook|
-      any_piece_inbetween?(rook, unmoved_king) == false
+      (any_piece_inbetween?(rook, unmoved_king) == false) &&
+      (any_king_pos_check?(rook,unmoved_king) == false)
     end
-    # The king is not in check, won't end up in check or pass through attacked squares
-      # go through range of movement and see if any of them are in check
+
   end
 
   def any_piece_inbetween?(rook, king)
@@ -208,6 +207,11 @@ class Board
                     find_square(column, rook.pos[1].to_i)['content']
                    end
     !pieces_array.all? {|piece| piece.is_a?(EmptySpace)}
+  end
+
+  def any_king_pos_check?(rook, unmoved_king)
+      range = range_of_movement(rook, king)
+      # go through range of movement and see if any of them are in check
   end
 
   def range_of_movement(rook, king)
