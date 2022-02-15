@@ -211,6 +211,7 @@ class Board
 
   def any_king_pos_check?(rook, king)
       range = range_of_movement(rook, king)
+      range[0] == 'a' ? range.shift(2) : range.pop
       # go through range of movement and see if any of them are in check
       range.map! do |column|
         opp_player_capture_moves(rook.color).include?([column, rook.pos[1]])
