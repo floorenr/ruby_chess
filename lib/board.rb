@@ -185,20 +185,20 @@ class Board
     # Neither the king nor the chosen rook has previously moved.
     unmoved_classes = find_unmoved_pieces(cur_player).map {|piece| piece.class}
     return false unless unmoved_classes.include?(King) && unmoved_classes.include?(Rook)
-    # There are no pieces between the king and the chosen rook.
     castlable_rooks = castlable_rooks(cur_player)
     return false if castlable_rooks.empty?
-    # The king is not in check, won't end up in check or pass through attacked squares
-      # go through range of movement and see if any of them are in check
     castlable_rooks
   end
 
   def castlable_rooks(cur_player)
+    # There are no pieces between the king and the chosen rook.
     unmoved_king = find_unmoved_pieces(cur_player).select {|piece| piece.class == King}[0]
     unmoved_rooks = find_unmoved_pieces(cur_player).select {|piece| piece.class == Rook}
     unmoved_rooks.select do |rook|
       any_piece_inbetween?(rook, unmoved_king) == false
     end
+    # The king is not in check, won't end up in check or pass through attacked squares
+      # go through range of movement and see if any of them are in check
   end
 
   def any_piece_inbetween?(rook, king)
