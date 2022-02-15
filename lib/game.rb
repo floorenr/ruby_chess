@@ -89,7 +89,7 @@ class Game
   end
 
   def castling_move
-    p castling_rooks = @board.castling_rooks(@cur_player)
+    castling_rooks = @board.castling_rooks(@cur_player)
     return false unless castling_rooks
     return false if $prompt.no?('Castling available! Play it?', default: 'Y')
     @board.make_castling_move(@cur_player, castling_rooks)
