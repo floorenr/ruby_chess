@@ -73,12 +73,12 @@ class Game
     choices = sel_square['content'].moves_array.collect(&:join).sort
     new_square_loc = $prompt.select('Choose a move:', choices).split(//)
     new_square = @board.find_square(new_square_loc[0], new_square_loc[1].to_i)
-    init_move(sel_square, new_square, enpassant_captured_pos)
+    init_move(sel_square, new_square, enpassant_captured_pos, new_square_loc)
   end
 
-  def init_move(sel_square, new_square, enpassant_captured_pos)
+  def init_move(sel_square, new_square, enpassant_captured_pos, new_square_loc)
     reset_enpassant
-    case new_square['content'].pos.length
+    case new_square_loc.length
     when 2
       @board.make_move(sel_square, new_square, @cur_player)
     when 12 # only en passant moves have 12 items in array
