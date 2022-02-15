@@ -223,13 +223,13 @@ class Board
   end
 
   def in_check?(player)
-    opp_player = player == 'white' ? 'black' : 'white'
     king_sq = @board_array.select { |sq| (sq['content'].is_a?(King) && sq['content'].color == player) }[0]
-    opp_player_capture_moves = opp_player_capture_moves(opp_player)
+    opp_player_capture_moves = opp_player_capture_moves(player)
     opp_player_capture_moves.include?(king_sq['content'].pos)
   end
 
-  def opp_player_capture_moves(opp_player)
+  def opp_player_capture_moves(player)
+    opp_player = player == 'white' ? 'black' : 'white'
     @board_array.select do |sq|
       sq['content'].color == opp_player && sq['content'].class != Pawn
     end
