@@ -121,8 +121,9 @@ class Board
     find_square(captured_pos[0], captured_pos[1].to_i)['content'] = EmptySpace.new(captured_pos)
   end
 
-  def make_castling_move(cur_player)
+  def make_castling_move(cur_player, castling_rooks)
     # add content
+    # @rook_choice = $prompt.select('Choose rook', [#{xxx}, #{xxx}])
   end
 
   def check_enpassant(sel_square, new_square, cur_player)
@@ -180,15 +181,16 @@ class Board
     end
   end
 
-  def castling_available?(cur_player)
+  def castling_rooks(cur_player)
     # Neither the king nor the chosen rook has previously moved.
     unmoved_classes = find_unmoved_pieces(cur_player).map {|piece| piece.class}
     return false unless unmoved_classes.include?(King) && unmoved_classes.include?(Rook)
     # There are no pieces between the king and the chosen rook.
-    return false if castlable_rooks(cur_player).empty?
+    castlable_rooks = castlable_rooks(cur_player)
+    return false if castlable_rooks.empty?
     # The king is not in check, won't end up in check or pass through attacked squares
       # go through range of movement and see if any of them are in check
-    true
+    castlable_rooks
   end
 
   def castlable_rooks(cur_player)
