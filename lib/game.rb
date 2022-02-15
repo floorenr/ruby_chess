@@ -55,7 +55,8 @@ class Game
     puts "Computer moves #{random_movable_sq['content'].class} from " \
       "#{random_movable_sq['content'].pos.join} to #{move.join}"
     new_square = @board.find_square(move[0], move[1].to_i)
-    init_move(random_movable_sq, new_square, enpassant_captured_pos)
+    new_square_loc = move.join.split(//)
+    init_move(random_movable_sq, new_square, enpassant_captured_pos, new_square_loc)
   end
 
   def player_move
