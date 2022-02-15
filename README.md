@@ -8,5 +8,4 @@ Game incorporates a very simple computer opponent, picking a random move,<br />
 without using any tactics.
 
 TODO:<br />
-introduce castling<br />
 clean up code and add comments when needed
