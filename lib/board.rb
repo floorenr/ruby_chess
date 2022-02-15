@@ -195,11 +195,11 @@ class Board
     unmoved_king = find_unmoved_pieces(cur_player).select {|piece| piece.class == King}[0]
     unmoved_rooks = find_unmoved_pieces(cur_player).select {|piece| piece.class == Rook}
     unmoved_rooks.select do |rook|
-      pieces_inbetween?(rook, unmoved_king) == false
+      any_piece_inbetween?(rook, unmoved_king) == false
     end
   end
 
-  def pieces_inbetween?(rook, king)
+  def any_piece_inbetween?(rook, king)
     range = range_of_movement(rook, king)
     range_inbetween = range[1..-2]
     pieces_array = range_inbetween.map do |column|
